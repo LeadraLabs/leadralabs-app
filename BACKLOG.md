@@ -1,14 +1,15 @@
 # LEADRA App — Backlog
 
 ## In progress
-- Nothing in progress — initial build just completed
+- Waiting on Railway `ANTHROPIC_API_KEY` check — Claude insight generation is failing live (see
+  CLAUDE.md "Blocked" section)
 
 ## Up next
-- Add real Supabase and Railway values to `.env` and test the full auth + journal flow live
-- Confirm/add a `primary_capability` (text, nullable) column on the Supabase `users` table —
-  `POST /users/profile` now reads/writes it but I couldn't verify the column exists
-- Test auth flow (email + Google) against the real Supabase project
-- Test journal entry → insight flow end to end against the real backend
+- Once insight generation works, test: insight display, micro-action refresh, insights list,
+  weekly summary, monthly patterns
+- Test Google OAuth sign-in end to end (not yet tried)
+- Fix the Supabase confirmation-email redirect URL (Authentication → URL Configuration) — the link
+  itself confirms correctly, but the redirect target errors in the browser afterward
 
 ## Backend gaps found during this build (not frontend bugs — see CLAUDE.md for detail)
 - No endpoint to update `mood_rating` on an already-submitted journal entry
@@ -29,8 +30,11 @@
 - Telegram mini app version
 - Team/cohort dashboard (B2B)
 
-## Bugs
-- None found yet — not tested against a live backend
+## Bugs fixed this session
+- Login always redirected to `/dashboard`, skipping onboarding for anyone signing up through the
+  email-confirmation path — fixed (see CLAUDE.md)
+- Backend `GET /users/profile` threw a 500 instead of 404 for a not-yet-onboarded user — fixed and
+  deployed
 
 ## Open decisions
 - Forgot password flow (currently placeholder link)
