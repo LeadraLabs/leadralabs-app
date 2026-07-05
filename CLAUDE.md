@@ -10,7 +10,12 @@ Vite + React → Cloudflare Pages → connects to Railway backend + Supabase aut
 - [x] Full flow tested live: signup → email confirmation → login → onboarding → journal entry →
       Claude insight → micro-action refresh → insights list → monthly patterns
 - [ ] Not yet tested: Google OAuth sign-in, weekly summary generation (cron-only, no frontend
-      trigger), Cloudflare Pages deployment
+      trigger)
+- [ ] In progress: Cloudflare Pages deployment, Supabase confirmation-email redirect fix (both
+      being done manually via dashboard — see BACKLOG.md)
+- [x] Feedback button built (floating action button + modal, in `AppLayout` on every authenticated
+      screen) — code complete and builds clean, not yet live-tested (needs `GITHUB_FEEDBACK_TOKEN`
+      on the backend, see leadralabs-backend/BACKLOG.md)
 
 ## What's been built
 - Full Vite + React 18 app, plain JavaScript, CSS Modules only, no UI libraries
@@ -44,6 +49,12 @@ Vite + React → Cloudflare Pages → connects to Railway backend + Supabase aut
   - All arrow/refresh *symbols* (not emoji, but the same idea) were also swapped for consistency:
     `ArrowClockwise` (micro-action refresh, monthly-patterns refresh), `ArrowLeft` ("Change mode"
     back links), `ArrowRight` ("Write about it", "Read more", "Write your first entry" links).
+- `src/components/FeedbackButton/FeedbackButton.jsx` — floating action button (bottom-right, above
+  the bottom nav) mounted in `AppLayout` so it's on every authenticated screen. Opens a modal:
+  type selector (Bug/Suggestion/General feedback, each with a Phosphor icon), "what were you
+  trying to do" + "what happened instead" textareas. Submits via `useApi.submitFeedback()` to
+  `POST /feedback`, automatically including `location.pathname` as the route — user id/email and
+  timestamp are captured server-side from the auth token, not sent by the frontend.
 
 ## What's been tested live (real Supabase + real Railway backend + real Claude API)
 Every core flow has now been verified end to end with real data, not mocks:

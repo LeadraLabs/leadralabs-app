@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import BottomNav from '../BottomNav/BottomNav';
+import FeedbackButton from '../FeedbackButton/FeedbackButton';
 import styles from './AppLayout.module.css';
 
 export default function AppLayout() {
@@ -11,6 +12,7 @@ export default function AppLayout() {
           <Outlet />
         </div>
       </main>
+      <FeedbackButton />
     </div>
   );
 }

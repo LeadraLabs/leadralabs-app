@@ -86,6 +86,11 @@ export function useApi() {
     []
   );
 
+  const submitFeedback = useCallback(
+    (data) => request('/feedback', { method: 'POST', body: JSON.stringify(data) }),
+    []
+  );
+
   return {
     getProfile,
     createOrUpdateProfile,
@@ -100,5 +105,6 @@ export function useApi() {
     getNotifications,
     markNotificationRead,
     markAllNotificationsRead,
+    submitFeedback,
   };
 }
