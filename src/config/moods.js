@@ -1,7 +1,9 @@
+import { SmileyXEyes, SmileySad, SmileyMeh, Smiley, SmileyWink } from '@phosphor-icons/react';
+
 export const MOOD_OPTIONS = [
-  { emoji: '😔', value: 2 },
-  { emoji: '😕', value: 4 },
-  { emoji: '😐', value: 6 },
-  { emoji: '🙂', value: 8 },
-  { emoji: '😊', value: 10 },
+  { icon: SmileyXEyes, value: 2 },
+  { icon: SmileySad, value: 4 },
+  { icon: SmileyMeh, value: 6 },
+  { icon: Smiley, value: 8 },
+  { icon: SmileyWink, value: 10 },
 ];

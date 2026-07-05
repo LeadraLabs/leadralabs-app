@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Bell } from '@phosphor-icons/react';
 import { useApi } from '../../hooks/useApi';
 import styles from './NotificationBell.module.css';
 
@@ -60,7 +61,7 @@ export default function NotificationBell() {
         onClick={() => setOpen((o) => !o)}
         aria-label="Notifications"
       >
-        🔔
+        <Bell size={22} weight="regular" color="var(--navy)" />
         {notifications.length > 0 && <span className={styles.dot} />}
       </button>
       {open && (

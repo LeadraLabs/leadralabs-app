@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PencilSimple } from '@phosphor-icons/react';
+import { PencilSimple, Compass, Sparkle } from '@phosphor-icons/react';
 import { useApi } from '../../hooks/useApi';
 import FreeWrite from './FreeWrite';
 import GuidedWrite from './GuidedWrite';
@@ -74,7 +74,9 @@ export default function Journal() {
   if (savedNoInsight) {
     return (
       <div className={styles.savedNotice}>
-        <p className={styles.savedHeading}>Your entry is saved ✨</p>
+        <p className={styles.savedHeading}>
+          Your entry is saved <Sparkle size={20} weight="regular" color="var(--gold)" />
+        </p>
         <p className={styles.savedBody}>
           Our thinking cap is taking a quick breather. We'll generate your insight shortly — check back on
           your dashboard soon.
@@ -97,7 +99,7 @@ export default function Journal() {
             <span className={styles.modeSubtitle}>Write whatever's on your mind</span>
           </button>
           <button type="button" className={styles.modeCard} onClick={() => setMode('guided')}>
-            <span className={styles.modeIcon}>🧭</span>
+            <Compass size={32} weight="regular" color="var(--navy)" className={styles.modeIcon} />
             <span className={styles.modeTitle}>Guided</span>
             <span className={styles.modeSubtitle}>Answer a prompt for your chosen capability</span>
           </button>

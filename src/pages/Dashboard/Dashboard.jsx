@@ -142,7 +142,7 @@ export default function Dashboard() {
     <div className={styles.page}>
       <div className={styles.header}>
         <h1 className={styles.greeting}>
-          {getTimeOfDayGreeting()}, {firstName} 👋
+          {getTimeOfDayGreeting()}, {firstName}
         </h1>
         <NotificationBell />
       </div>
@@ -183,7 +183,11 @@ export default function Dashboard() {
               className={`${styles.moodButton} ${mood === String(m.value) ? styles.moodSelected : ''}`}
               onClick={() => handleMoodTap(m.value)}
             >
-              {m.emoji}
+              <m.icon
+                size={24}
+                weight="regular"
+                color={mood === String(m.value) ? 'var(--gold-hover)' : 'var(--text-muted)'}
+              />
             </button>
           ))}
         </div>

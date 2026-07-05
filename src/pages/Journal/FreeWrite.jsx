@@ -48,7 +48,11 @@ export default function FreeWrite({
             className={`${styles.moodButton} ${moodRating === m.value ? styles.moodSelected : ''}`}
             onClick={() => setMoodRating(moodRating === m.value ? null : m.value)}
           >
-            {m.emoji}
+            <m.icon
+              size={24}
+              weight="regular"
+              color={moodRating === m.value ? 'var(--gold-hover)' : 'var(--text-muted)'}
+            />
           </button>
         ))}
       </div>

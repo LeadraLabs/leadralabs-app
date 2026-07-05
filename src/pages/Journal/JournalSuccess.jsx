@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { Sparkle } from '@phosphor-icons/react';
 import InsightCard from '../../components/InsightCard/InsightCard';
 import styles from './Journal.module.css';
 
@@ -23,7 +24,9 @@ export default function JournalSuccess() {
 
   return (
     <div className={styles.writePage}>
-      <h1 className={styles.heading}>Insight ready ✨</h1>
+      <h1 className={styles.heading}>
+        Insight ready <Sparkle size={20} weight="regular" color="var(--gold)" />
+      </h1>
       <InsightCard insight={insight} />
       <Link to="/dashboard" className={styles.savedButton} style={{ textAlign: 'center' }}>
         Back to dashboard
