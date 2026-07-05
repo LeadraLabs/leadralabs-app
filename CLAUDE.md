@@ -7,8 +7,10 @@ Vite + React → Cloudflare Pages → connects to Railway backend + Supabase aut
 ## Current status
 - [x] Initial build complete
 - [x] Connected to real Supabase project and Railway backend
-- [x] Signup, login, onboarding, journal submission tested live with real data
-- [ ] Claude insight generation — currently failing on the live backend, blocked on Railway env check
+- [x] Full flow tested live: signup → email confirmation → login → onboarding → journal entry →
+      Claude insight → micro-action refresh → insights list → monthly patterns
+- [ ] Not yet tested: Google OAuth sign-in, weekly summary generation (cron-only, no frontend
+      trigger), Cloudflare Pages deployment
 
 ## What's been built
 - Full Vite + React 18 app, plain JavaScript, CSS Modules only, no UI libraries
@@ -26,39 +28,42 @@ Vite + React → Cloudflare Pages → connects to Railway backend + Supabase aut
   and the public-route guard use it to send users who haven't picked a `primary_capability` yet to
   `/onboarding` instead of straight to `/dashboard`
 
-## What's been tested live (real Supabase + real Railway backend)
-- **Signup** — creates a Supabase auth user; this project requires email confirmation, so the app
-  correctly shows "check your email" rather than a session
-- **Email confirmation** — the confirmation link's redirect page errors in the browser (its
-  redirect target isn't reachable), but the confirmation itself succeeds server-side before that
-  redirect — this is expected and not an app bug. See BACKLOG.md if you want the redirect fixed.
-- **Login** — signs in and correctly routes to `/onboarding` (new user) or `/dashboard` (returning
-  user) based on whether `primary_capability` is set
-- **Onboarding** — all 3 steps, capability selection saves via `POST /users/profile` and persists
-  (confirmed by reloading Profile and seeing it selected)
-- **Journal submission (free write)** — entry saves correctly (content, module, capability,
-  mood_rating all round-trip correctly); confirmed via the raw network response
-- **Dashboard, Insights, Profile** — all correctly show graceful empty/pending states when there's
-  no insight yet; Profile's streak dots and entry count update correctly from real data
+## What's been tested live (real Supabase + real Railway backend + real Claude API)
+Every core flow has now been verified end to end with real data, not mocks:
+- **Signup** → email confirmation (this Supabase project requires it) → **Login** correctly routes
+  new users to `/onboarding`, returning users to `/dashboard`
+- **Onboarding** — all 3 steps; capability selection saves via `POST /users/profile` and persists
+- **Journal submission (free write)** — entry saves correctly; Claude generates a real insight
+  (sentiment, themes, 3 micro-actions, coaching note)
+- **Micro-action refresh** — cycles through all 3 options, decrements the remaining count
+  correctly, shows the right "you've explored all three" message when exhausted, and the exhausted
+  state persists correctly on reload (confirmed via Insights list)
+- **Insights list** — real entry shows with correct date/sentiment/preview; tap-to-expand renders
+  the full InsightCard inline, including the persisted refresh state
+- **Dashboard** — today's-focus card shows the real micro-action once generated; recent entries
+  list, mood strip, and weekly-summary empty state all correct
+- **Monthly patterns** — calls Claude live, renders overall_theme/patterns/encouragement exactly to
+  spec (navy featured card, capability badge on pattern cards, gold-tinted encouragement)
+- **Profile** — streak dots, entry count, member-since date, and primary_capability selection all
+  correct with real data
 - Sign out works and correctly redirects to `/login`
-
-## Blocked — needs your input
-**Claude insight generation is failing on the live backend.** A real journal entry saved fine, but
-`insight` came back `null` with the message "Our thinking cap is taking a quick breather." The
-backend's own error logging points at `ANTHROPIC_API_KEY` — check Railway → leadralabs-backend →
-Variables, and confirm it's set to a valid key (starts with `sk-ant-`). Once that's fixed, still
-to verify: insight card display, micro-action refresh, insights list with real content, weekly
-summary generation, monthly patterns.
 
 ## Bugs found and fixed this session
 1. **Login always went to `/dashboard`, skipping onboarding entirely** for anyone who signed up
    through the email-confirmation path (i.e. everyone, since this Supabase project requires it).
    Fixed in `src/utils/onboarding.js` + `Login.jsx` + `App.jsx`'s `PublicRoute`.
 2. **Backend: `GET /users/profile` threw a raw 500** instead of a graceful "not found" for any
-   user who hadn't been upserted into the `users` table yet (i.e. every new signup before they
-   finish onboarding). Fixed in `leadralabs-backend/src/routes/users.js` — switched `.single()` to
-   `.maybeSingle()` and return 404. Deployed and confirmed live.
-3. `.env`'s `VITE_API_URL` had a typo (`yleadralabs-backend...` missing `https://`) — fixed locally
+   user who hadn't been upserted into the `users` table yet. Fixed in
+   `leadralabs-backend/src/routes/users.js` — switched `.single()` to `.maybeSingle()` and return
+   404. Deployed and confirmed live.
+3. **Claude insight generation was failing with a 401 `invalid x-api-key`** — the `ANTHROPIC_API_KEY`
+   value in Railway didn't authenticate even though it looked correct. Fixed by pasting a fresh key
+   copy into Railway. Confirmed working with real generated insights afterward.
+4. **Monthly patterns occasionally showed "couldn't load" even when Claude succeeded.** React
+   StrictMode double-invokes effects in dev, firing two overlapping `GET /patterns/monthly`
+   requests; if the second (duplicate) one failed, its result overwrote the first successful one.
+   Fixed with a request-id guard in `Summaries.jsx` so only the latest request's result is applied.
+5. `.env`'s `VITE_API_URL` had a typo (`yleadralabs-backend...` missing `https://`) — fixed locally
    (not committed, `.env` is gitignored).
 
 ## Known issues / backend gaps found while building
@@ -72,11 +77,9 @@ summary generation, monthly patterns.
    (confirmation still works), but worth fixing before real users sign up.
 
 ## Next session — pick up here
-- Once `ANTHROPIC_API_KEY` is fixed, re-test: insight display, micro-action refresh (3 options),
-  insights list, weekly summary (`POST /summaries/generate` — no frontend trigger for this
-  currently, it's cron-only via the backend scheduler), monthly patterns
 - Test Google OAuth sign-in (not yet tried — needs a real browser interaction with Google's login)
 - Fix the Supabase confirmation-email redirect URL (Authentication → URL Configuration)
+- Set up Cloudflare Pages deployment (build command `npm run build`, output `dist`)
 - Consider addressing the backend gaps above
 
 ## Key URLs

@@ -1,15 +1,13 @@
 # LEADRA App — Backlog
 
 ## In progress
-- Waiting on Railway `ANTHROPIC_API_KEY` check — Claude insight generation is failing live (see
-  CLAUDE.md "Blocked" section)
+- Nothing blocking — full flow verified live (signup through monthly patterns)
 
 ## Up next
-- Once insight generation works, test: insight display, micro-action refresh, insights list,
-  weekly summary, monthly patterns
 - Test Google OAuth sign-in end to end (not yet tried)
 - Fix the Supabase confirmation-email redirect URL (Authentication → URL Configuration) — the link
   itself confirms correctly, but the redirect target errors in the browser afterward
+- Set up Cloudflare Pages deployment
 
 ## Backend gaps found during this build (not frontend bugs — see CLAUDE.md for detail)
 - No endpoint to update `mood_rating` on an already-submitted journal entry
@@ -32,9 +30,13 @@
 
 ## Bugs fixed this session
 - Login always redirected to `/dashboard`, skipping onboarding for anyone signing up through the
-  email-confirmation path — fixed (see CLAUDE.md)
+  email-confirmation path — fixed
 - Backend `GET /users/profile` threw a 500 instead of 404 for a not-yet-onboarded user — fixed and
   deployed
+- Claude insight generation failed with a 401 invalid-key error — root cause was a bad
+  `ANTHROPIC_API_KEY` value in Railway, not a code issue; fixed by re-pasting the key
+- Monthly patterns occasionally showed a false "couldn't load" error due to a React StrictMode
+  double-fetch race condition overwriting a successful response — fixed with a request-id guard
 
 ## Open decisions
 - Forgot password flow (currently placeholder link)
