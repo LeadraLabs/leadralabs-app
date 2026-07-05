@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useApi } from '../../hooks/useApi';
 import CapabilityBadge from '../../components/CapabilityBadge/CapabilityBadge';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
@@ -98,13 +98,21 @@ function MonthlyTab() {
   const { getMonthlyPatterns } = useApi();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
+  const requestIdRef = useRef(0);
 
   const load = () => {
+    const requestId = ++requestIdRef.current;
     setLoading(true);
     getMonthlyPatterns()
-      .then((result) => setData(result))
-      .catch(() => setData(null))
-      .finally(() => setLoading(false));
+      .then((result) => {
+        if (requestIdRef.current === requestId) setData(result);
+      })
+      .catch(() => {
+        if (requestIdRef.current === requestId) setData(null);
+      })
+      .finally(() => {
+        if (requestIdRef.current === requestId) setLoading(false);
+      });
   };
 
   useEffect(load, [getMonthlyPatterns]);
