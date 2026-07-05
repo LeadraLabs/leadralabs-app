@@ -1,0 +1,196 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.greeting {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.focusCard {
+  background: var(--warm-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+  border-left: 4px solid var(--gold);
+}
+
+.focusLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.focusAction {
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.refreshLink {
+  margin-top: 12px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.refreshLink:hover:not(:disabled) {
+  color: var(--gold-hover);
+}
+
+.promptCard {
+  background: var(--gold-light);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+
+.promptText {
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.promptLink {
+  display: inline-block;
+  font-weight: 600;
+  color: var(--gold-hover);
+}
+
+.sectionLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.moodRow {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.moodButton {
+  flex: 1;
+  min-height: 48px;
+  font-size: 24px;
+  background: var(--warm-white);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.moodSelected {
+  border-color: var(--gold);
+  background: var(--gold-light);
+}
+
+.summaryCard {
+  background: var(--warm-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+}
+
+.summaryText {
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.summaryLink {
+  font-weight: 600;
+  color: var(--gold-hover);
+  font-size: 14px;
+}
+
+.summaryEmpty {
+  background: var(--warm-grey);
+  border-radius: 16px;
+  padding: 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.entriesSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.emptyNote {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.entryCard {
+  background: var(--warm-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.entryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.entryDate {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.entryPreview {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.entryExpanded {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.entryFull {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.entryInsightNote {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.journalButton {
+  display: block;
+  text-align: center;
+  min-height: 48px;
+  line-height: 48px;
+  background: var(--gold);
+  color: var(--warm-white);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background 0.2s ease;
+}
+
+.journalButton:hover {
+  background: var(--gold-hover);
+}

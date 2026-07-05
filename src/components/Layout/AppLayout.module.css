@@ -1,0 +1,19 @@
+.shell {
+  min-height: 100vh;
+}
+
+.content {
+  padding: 20px 16px 84px;
+}
+
+.inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .content {
+    margin-left: 220px;
+    padding: 40px 32px;
+  }
+}

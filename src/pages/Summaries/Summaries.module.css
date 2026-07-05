@@ -1,0 +1,176 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  background: var(--warm-grey);
+  padding: 4px;
+  border-radius: 999px;
+}
+
+.tab {
+  flex: 1;
+  min-height: 40px;
+  border: none;
+  background: none;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.tabActive {
+  background: var(--warm-white);
+  color: var(--navy);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.emptyText {
+  font-size: 15px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.weeklyList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summaryCard {
+  background: var(--warm-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+}
+
+.weekLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.summaryText {
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
+.themes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.themePill {
+  background: var(--gold-light);
+  color: var(--gold-hover);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.focusNote {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.progressNote {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.collapsedRow {
+  width: 100%;
+  text-align: left;
+  min-height: 44px;
+  padding: 0 20px;
+  background: var(--warm-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.monthlyWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.refreshRow {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.refreshButton {
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.refreshButton:hover {
+  color: var(--gold-hover);
+}
+
+.overallCard {
+  background: var(--navy);
+  color: var(--warm-white);
+  border-radius: 16px;
+  padding: 24px;
+  font-size: 17px;
+  font-weight: 500;
+  border-left: 4px solid var(--gold);
+}
+
+.patternList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.patternCard {
+  background: var(--warm-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 18px;
+}
+
+.patternHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.patternTitle {
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 15px;
+}
+
+.patternObservation {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.encouragementCard {
+  background: var(--gold-light);
+  border-radius: 16px;
+  padding: 18px;
+  font-size: 14px;
+  color: var(--text-primary);
+}

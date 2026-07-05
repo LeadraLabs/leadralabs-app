@@ -1,0 +1,61 @@
+:root {
+  --navy: #1A3560;
+  --gold: #E8961E;
+  --gold-hover: #C97D10;
+  --gold-light: rgba(232, 150, 30, 0.1);
+  --off-white: #F9F8F6;
+  --warm-white: #FFFFFF;
+  --warm-grey: #F2F0EB;
+  --border: #E2E0DC;
+  --text-primary: #1C1C1C;
+  --text-muted: #5C5C5C;
+  --text-light: #9B9B9B;
+  --success: #2D7A4F;
+  --error: #C0392B;
+
+  --tint-emotional-regulation: rgba(220, 80, 80, 0.1);
+  --tint-critical-thinking: rgba(100, 80, 200, 0.1);
+  --tint-situational-judgement: rgba(200, 150, 30, 0.1);
+  --tint-change-agility: rgba(50, 160, 100, 0.1);
+  --tint-influence: rgba(50, 100, 200, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--off-white);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#root {
+  min-height: 100vh;
+}

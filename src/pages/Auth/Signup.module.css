@@ -1,0 +1,157 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--off-white);
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--warm-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 36px 28px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: 0.5px;
+}
+
+.arrow {
+  color: var(--gold);
+  margin: 0 2px;
+}
+
+.tagline {
+  margin-top: 8px;
+  margin-bottom: 28px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  margin-top: 16px;
+}
+
+.fieldLabel:first-child {
+  margin-top: 0;
+}
+
+.input {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--off-white);
+  transition: border-color 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.error {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--error);
+}
+
+.info {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--success);
+}
+
+.submitButton {
+  min-height: 48px;
+  margin-top: 20px;
+  background: var(--gold);
+  color: var(--warm-white);
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background 0.2s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--gold-hover);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.divider span {
+  padding: 0 12px;
+}
+
+.googleButton {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--warm-white);
+  border: 1px solid var(--navy);
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--text-primary);
+  transition: background 0.2s ease;
+}
+
+.googleButton:hover {
+  background: var(--warm-grey);
+}
+
+.footerLink {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.footerLink a {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.footerLink a:hover {
+  color: var(--gold-hover);
+}
