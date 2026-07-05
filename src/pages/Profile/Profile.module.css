@@ -83,19 +83,16 @@
   align-items: center;
   gap: 10px;
   min-height: 44px;
-  padding: 10px 14px;
+  padding: 8px 14px;
   border-radius: 12px;
-  border: 2px solid transparent;
+  background: var(--warm-white);
+  border: 2px solid var(--border);
   text-align: left;
   transition: border-color 0.2s ease;
 }
 
 .capabilitySelected {
   border-color: var(--gold);
-}
-
-.capabilityIcon {
-  font-size: 18px;
 }
 
 .capabilityName {

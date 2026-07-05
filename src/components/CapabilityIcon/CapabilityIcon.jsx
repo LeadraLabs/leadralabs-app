@@ -1,12 +1,12 @@
 import { getCapability } from '../../config/capabilities';
-import styles from './CapabilityBadge.module.css';
+import styles from './CapabilityIcon.module.css';
 
 const ICON_SIZE = {
-  medium: 15,
-  small: 13,
+  large: 28,
+  small: 16,
 };
 
-export default function CapabilityBadge({ capabilityKey, size = 'medium' }) {
+export default function CapabilityIcon({ capabilityKey, size = 'large' }) {
   const capability = getCapability(capabilityKey);
 
   if (!capability) return null;
@@ -15,11 +15,10 @@ export default function CapabilityBadge({ capabilityKey, size = 'medium' }) {
 
   return (
     <span
-      className={`${styles.badge} ${size === 'small' ? styles.small : ''}`}
+      className={`${styles.container} ${size === 'small' ? styles.small : styles.large}`}
       style={{ background: capability.tint }}
     >
       <Icon size={ICON_SIZE[size]} weight="regular" color={capability.color} />
-      <span className={styles.name}>{capability.name}</span>
     </span>
   );
 }

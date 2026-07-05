@@ -1,4 +1,5 @@
 import { CAPABILITIES, getCapability } from '../../config/capabilities';
+import CapabilityIcon from '../../components/CapabilityIcon/CapabilityIcon';
 import styles from './Journal.module.css';
 
 const MIN_LENGTH = 10;
@@ -31,7 +32,7 @@ export default function GuidedWrite({
             className={`${styles.chip} ${capability === c.key ? styles.chipSelected : ''}`}
             onClick={() => setCapability(c.key)}
           >
-            <span>{c.icon}</span>
+            <CapabilityIcon capabilityKey={c.key} size="large" />
             <span>{c.name}</span>
           </button>
         ))}

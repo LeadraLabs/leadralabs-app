@@ -179,10 +179,12 @@
 }
 
 .journalButton {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   text-align: center;
   min-height: 48px;
-  line-height: 48px;
   background: var(--gold);
   color: var(--warm-white);
   border-radius: 999px;

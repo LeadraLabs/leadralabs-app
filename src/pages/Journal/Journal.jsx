@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PencilSimple } from '@phosphor-icons/react';
 import { useApi } from '../../hooks/useApi';
 import FreeWrite from './FreeWrite';
 import GuidedWrite from './GuidedWrite';
@@ -91,7 +92,7 @@ export default function Journal() {
         <h1 className={styles.heading}>What kind of entry today?</h1>
         <div className={styles.modeCards}>
           <button type="button" className={styles.modeCard} onClick={() => setMode('free')}>
-            <span className={styles.modeIcon}>✍️</span>
+            <PencilSimple size={32} weight="regular" color="var(--navy)" className={styles.modeIcon} />
             <span className={styles.modeTitle}>Free write</span>
             <span className={styles.modeSubtitle}>Write whatever's on your mind</span>
           </button>

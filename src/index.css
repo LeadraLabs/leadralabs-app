@@ -18,6 +18,12 @@
   --tint-situational-judgement: rgba(200, 150, 30, 0.1);
   --tint-change-agility: rgba(50, 160, 100, 0.1);
   --tint-influence: rgba(50, 100, 200, 0.1);
+
+  --color-emotional-regulation: rgb(220, 80, 80);
+  --color-critical-thinking: rgb(100, 80, 200);
+  --color-situational-judgement: rgb(200, 150, 30);
+  --color-change-agility: rgb(50, 160, 100);
+  --color-influence: rgb(50, 100, 200);
 }
 
 * {

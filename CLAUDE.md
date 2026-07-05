@@ -27,6 +27,14 @@ Vite + React → Cloudflare Pages → connects to Railway backend + Supabase aut
 - `src/utils/onboarding.js` — `needsOnboarding()` checks the user's profile after auth; both Login
   and the public-route guard use it to send users who haven't picked a `primary_capability` yet to
   `/onboarding` instead of straight to `/dashboard`
+- Icons: replaced all emoji with `@phosphor-icons/react`. Capability icons (HeartStraight, Brain,
+  Scales, Lightning, Handshake) render via a shared `CapabilityIcon` component (rounded-square
+  tinted container, 28px icon) used at full size in Onboarding, Profile's capability picker, and
+  the Journal capability chips; `CapabilityBadge` uses a smaller inline version of the same icons
+  for compact contexts (Dashboard entries, Insights rows, Summaries pattern cards). Bottom nav uses
+  House/PencilSimple/Lightbulb/CalendarBlank/UserCircle with `currentColor` for the active-tab
+  gold state. Other emoji (mood strip, notification bell, greeting wave) were left as-is — out of
+  scope for that request.
 
 ## What's been tested live (real Supabase + real Railway backend + real Claude API)
 Every core flow has now been verified end to end with real data, not mocks:

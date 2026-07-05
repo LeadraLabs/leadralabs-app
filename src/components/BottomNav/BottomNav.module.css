@@ -24,10 +24,7 @@
 }
 
 .icon {
-  font-size: 20px;
-  line-height: 1;
-  filter: grayscale(1);
-  opacity: 0.6;
+  display: block;
 }
 
 .label {
@@ -37,11 +34,6 @@
 
 .active {
   color: var(--gold);
-}
-
-.active .icon {
-  filter: none;
-  opacity: 1;
 }
 
 @media (min-width: 768px) {

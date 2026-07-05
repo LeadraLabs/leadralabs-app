@@ -82,16 +82,17 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: 6px;
-  min-height: 44px;
-  padding: 0 16px;
-  border-radius: 999px;
+  gap: 10px;
+  min-height: 60px;
+  padding: 6px 18px 6px 6px;
+  border-radius: 16px;
   border: 2px solid var(--border);
   background: var(--warm-white);
   font-size: 14px;
   font-weight: 500;
   color: var(--text-primary);
   transition: border-color 0.2s ease;
+  white-space: nowrap;
 }
 
 .chipSelected {

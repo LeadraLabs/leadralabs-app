@@ -1,5 +1,6 @@
 import { CAPABILITIES } from '../../config/capabilities';
 import { MOOD_OPTIONS } from '../../config/moods';
+import CapabilityIcon from '../../components/CapabilityIcon/CapabilityIcon';
 import styles from './Journal.module.css';
 
 const MIN_LENGTH = 10;
@@ -33,7 +34,7 @@ export default function FreeWrite({
             className={`${styles.chip} ${capability === c.key ? styles.chipSelected : ''}`}
             onClick={() => setCapability(capability === c.key ? null : c.key)}
           >
-            <span>{c.icon}</span>
+            <CapabilityIcon capabilityKey={c.key} size="large" />
             <span>{c.name}</span>
           </button>
         ))}

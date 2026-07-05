@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { useApi } from '../../hooks/useApi';
 import { CAPABILITIES } from '../../config/capabilities';
+import CapabilityIcon from '../../components/CapabilityIcon/CapabilityIcon';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import styles from './Profile.module.css';
 
@@ -140,11 +141,10 @@ export default function Profile() {
                 className={`${styles.capabilityCard} ${
                   profile?.primary_capability === c.key ? styles.capabilitySelected : ''
                 }`}
-                style={{ background: c.tint }}
                 onClick={() => handleSelectCapability(c.key)}
                 disabled={saving}
               >
-                <span className={styles.capabilityIcon}>{c.icon}</span>
+                <CapabilityIcon capabilityKey={c.key} size="large" />
                 <span className={styles.capabilityName}>{c.name}</span>
               </button>
             ))}

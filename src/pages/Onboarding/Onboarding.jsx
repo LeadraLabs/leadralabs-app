@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApi } from '../../hooks/useApi';
 import { useAuth } from '../../hooks/useAuth';
 import { CAPABILITIES } from '../../config/capabilities';
+import CapabilityIcon from '../../components/CapabilityIcon/CapabilityIcon';
 import styles from './Onboarding.module.css';
 
 const TOTAL_STEPS = 3;
@@ -53,9 +54,7 @@ export default function Onboarding() {
             </p>
             <div className={styles.iconGrid}>
               {CAPABILITIES.map((c) => (
-                <span key={c.key} className={styles.iconCircle} style={{ background: c.tint }}>
-                  {c.icon}
-                </span>
+                <CapabilityIcon key={c.key} capabilityKey={c.key} size="large" />
               ))}
             </div>
           </div>
@@ -92,10 +91,9 @@ export default function Onboarding() {
                   className={`${styles.capabilityCard} ${
                     selectedCapability === c.key ? styles.capabilitySelected : ''
                   }`}
-                  style={{ background: c.tint }}
                   onClick={() => setSelectedCapability(c.key)}
                 >
-                  <span className={styles.capabilityIcon}>{c.icon}</span>
+                  <CapabilityIcon capabilityKey={c.key} size="large" />
                   <span className={styles.capabilityText}>
                     <span className={styles.capabilityName}>{c.name}</span>
                     <span className={styles.capabilityDescription}>{c.description}</span>

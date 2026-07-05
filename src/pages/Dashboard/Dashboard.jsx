@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import { PencilSimple } from '@phosphor-icons/react';
 import { useAuth } from '../../hooks/useAuth';
 import { useApi } from '../../hooks/useApi';
 import { formatEntryDate, getTimeOfDayGreeting } from '../../utils/date';
@@ -235,7 +236,8 @@ export default function Dashboard() {
       </div>
 
       <Link to="/journal" className={styles.journalButton}>
-        ✍️ Write today's entry
+        <PencilSimple size={18} weight="bold" color="currentColor" />
+        Write today's entry
       </Link>
     </div>
   );

@@ -1,12 +1,13 @@
 import { NavLink } from 'react-router-dom';
+import { House, PencilSimple, Lightbulb, CalendarBlank, UserCircle } from '@phosphor-icons/react';
 import styles from './BottomNav.module.css';
 
 const TABS = [
-  { icon: '🏠', label: 'Home', to: '/dashboard' },
-  { icon: '✍️', label: 'Journal', to: '/journal' },
-  { icon: '💡', label: 'Insights', to: '/insights' },
-  { icon: '📋', label: 'Summaries', to: '/summaries' },
-  { icon: '👤', label: 'Profile', to: '/profile' },
+  { icon: House, label: 'Home', to: '/dashboard' },
+  { icon: PencilSimple, label: 'Journal', to: '/journal' },
+  { icon: Lightbulb, label: 'Insights', to: '/insights' },
+  { icon: CalendarBlank, label: 'Summaries', to: '/summaries' },
+  { icon: UserCircle, label: 'Profile', to: '/profile' },
 ];
 
 export default function BottomNav() {
@@ -18,7 +19,7 @@ export default function BottomNav() {
           to={tab.to}
           className={({ isActive }) => `${styles.tab} ${isActive ? styles.active : ''}`}
         >
-          <span className={styles.icon}>{tab.icon}</span>
+          <tab.icon size={22} weight="regular" color="currentColor" className={styles.icon} />
           <span className={styles.label}>{tab.label}</span>
         </NavLink>
       ))}
