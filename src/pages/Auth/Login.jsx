@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
+import { useApi } from '../../hooks/useApi';
+import { needsOnboarding } from '../../utils/onboarding';
 import styles from './Login.module.css';
 
 export default function Login() {
   const { signInWithPassword, signInWithGoogle } = useAuth();
+  const { getProfile } = useApi();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -19,14 +22,15 @@ export default function Login() {
 
     const { error: signInError } = await signInWithPassword(email, password);
 
-    setSubmitting(false);
-
     if (signInError) {
+      setSubmitting(false);
       setError("That email and password don't match — want to try again?");
       return;
     }
 
-    navigate('/dashboard');
+    const destination = (await needsOnboarding(getProfile)) ? '/onboarding' : '/dashboard';
+    setSubmitting(false);
+    navigate(destination);
   };
 
   const handleGoogle = async () => {

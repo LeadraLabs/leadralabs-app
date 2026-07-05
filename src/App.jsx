@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider, useAuth } from './hooks/useAuth';
+import { useApi } from './hooks/useApi';
+import { needsOnboarding } from './utils/onboarding';
 import AppLayout from './components/Layout/AppLayout';
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import Login from './pages/Auth/Login';
@@ -23,9 +26,25 @@ function ProtectedRoute({ children }) {
 
 function PublicRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
+  const { getProfile } = useApi();
+  const [destination, setDestination] = useState(null);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setDestination(null);
+      return;
+    }
+    let cancelled = false;
+    needsOnboarding(getProfile).then((needs) => {
+      if (!cancelled) setDestination(needs ? '/onboarding' : '/dashboard');
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [isAuthenticated, getProfile]);
 
   if (loading) return <LoadingSpinner />;
-  if (isAuthenticated) return <Navigate to="/dashboard" replace />;
+  if (isAuthenticated) return destination ? <Navigate to={destination} replace /> : <LoadingSpinner />;
 
   return children;
 }
