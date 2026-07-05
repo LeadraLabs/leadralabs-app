@@ -27,14 +27,23 @@ Vite + React → Cloudflare Pages → connects to Railway backend + Supabase aut
 - `src/utils/onboarding.js` — `needsOnboarding()` checks the user's profile after auth; both Login
   and the public-route guard use it to send users who haven't picked a `primary_capability` yet to
   `/onboarding` instead of straight to `/dashboard`
-- Icons: replaced all emoji with `@phosphor-icons/react`. Capability icons (HeartStraight, Brain,
-  Scales, Lightning, Handshake) render via a shared `CapabilityIcon` component (rounded-square
-  tinted container, 28px icon) used at full size in Onboarding, Profile's capability picker, and
-  the Journal capability chips; `CapabilityBadge` uses a smaller inline version of the same icons
-  for compact contexts (Dashboard entries, Insights rows, Summaries pattern cards). Bottom nav uses
-  House/PencilSimple/Lightbulb/CalendarBlank/UserCircle with `currentColor` for the active-tab
-  gold state. Other emoji (mood strip, notification bell, greeting wave) were left as-is — out of
-  scope for that request.
+- Icons: every emoji in the app has been replaced with `@phosphor-icons/react` — none remain
+  anywhere in `src/` (confirmed by a full regex scan across all `.jsx`/`.js`/`.css` files).
+  - Capability icons (HeartStraight, Brain, Scales, Lightning, Handshake) render via a shared
+    `CapabilityIcon` component (rounded-square tinted container, 28px icon) used at full size in
+    Onboarding, Profile's capability picker, and the Journal capability chips; `CapabilityBadge`
+    uses a smaller inline version of the same icons for compact contexts (Dashboard entries,
+    Insights rows, Summaries pattern cards).
+  - Bottom nav uses House/PencilSimple/Lightbulb/CalendarBlank/UserCircle with `currentColor` so
+    the existing active-tab gold state just works.
+  - Mood strip uses SmileyXEyes/SmileySad/SmileyMeh/Smiley/SmileyWink (same 1–10 value mapping).
+  - NotificationBell uses `Bell`; the dashboard greeting had its wave emoji removed entirely
+    (no replacement icon) rather than swapped.
+  - Sparkle replaces the two decorative ✨ (journal-saved message, "Insight ready" heading);
+    Compass replaces the Guided-mode emoji.
+  - All arrow/refresh *symbols* (not emoji, but the same idea) were also swapped for consistency:
+    `ArrowClockwise` (micro-action refresh, monthly-patterns refresh), `ArrowLeft` ("Change mode"
+    back links), `ArrowRight` ("Write about it", "Read more", "Write your first entry" links).
 
 ## What's been tested live (real Supabase + real Railway backend + real Claude API)
 Every core flow has now been verified end to end with real data, not mocks:

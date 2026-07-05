@@ -37,6 +37,9 @@
 }
 
 .refreshLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin-top: 12px;
   background: none;
   border: none;
@@ -64,7 +67,9 @@
 }
 
 .promptLink {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-weight: 600;
   color: var(--gold-hover);
 }
@@ -111,6 +116,9 @@
 }
 
 .summaryLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-weight: 600;
   color: var(--gold-hover);
   font-size: 14px;

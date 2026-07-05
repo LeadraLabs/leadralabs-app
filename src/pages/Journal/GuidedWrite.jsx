@@ -1,3 +1,4 @@
+import { ArrowLeft } from '@phosphor-icons/react';
 import { CAPABILITIES, getCapability } from '../../config/capabilities';
 import CapabilityIcon from '../../components/CapabilityIcon/CapabilityIcon';
 import styles from './Journal.module.css';
@@ -21,7 +22,8 @@ export default function GuidedWrite({
   return (
     <div className={styles.writePage}>
       <button type="button" className={styles.backLink} onClick={onBack}>
-        ← Change mode
+        <ArrowLeft size={14} weight="regular" color="currentColor" />
+        Change mode
       </button>
 
       <div className={styles.chipRow}>

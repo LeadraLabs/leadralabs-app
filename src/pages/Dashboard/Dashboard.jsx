@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { PencilSimple } from '@phosphor-icons/react';
+import { PencilSimple, ArrowClockwise, ArrowRight } from '@phosphor-icons/react';
 import { useAuth } from '../../hooks/useAuth';
 import { useApi } from '../../hooks/useApi';
 import { formatEntryDate, getTimeOfDayGreeting } from '../../utils/date';
@@ -153,7 +153,8 @@ export default function Dashboard() {
           <p className={styles.focusAction}>{todayInsight.current_suggested_action}</p>
           {todayInsight.refreshes_remaining > 0 && (
             <button type="button" className={styles.refreshLink} onClick={handleRefreshAction} disabled={refreshing}>
-              ↻ Try a different one ({todayInsight.refreshes_remaining} left)
+              <ArrowClockwise size={14} weight="regular" color="currentColor" />
+              Try a different one ({todayInsight.refreshes_remaining} left)
             </button>
           )}
         </div>
@@ -168,7 +169,7 @@ export default function Dashboard() {
         <div className={styles.promptCard}>
           <p className={styles.promptText}>What moment shaped your day so far?</p>
           <Link to="/journal" className={styles.promptLink}>
-            Write about it →
+            Write about it <ArrowRight size={14} weight="regular" color="currentColor" />
           </Link>
         </div>
       )}
@@ -199,7 +200,7 @@ export default function Dashboard() {
           <div className={styles.summaryCard}>
             <p className={styles.summaryText}>{summaryPreview}</p>
             <Link to="/summaries" className={styles.summaryLink}>
-              Read more →
+              Read more <ArrowRight size={14} weight="regular" color="currentColor" />
             </Link>
           </div>
         ) : (

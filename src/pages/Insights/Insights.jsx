@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight } from '@phosphor-icons/react';
 import { useApi } from '../../hooks/useApi';
 import { formatEntryDate } from '../../utils/date';
 import CapabilityBadge from '../../components/CapabilityBadge/CapabilityBadge';
@@ -59,7 +60,7 @@ export default function Insights() {
           Your insights will appear here after your first journal entry.
         </p>
         <Link to="/journal" className={styles.emptyLink}>
-          Write your first entry →
+          Write your first entry <ArrowRight size={14} weight="regular" color="currentColor" />
         </Link>
       </div>
     );

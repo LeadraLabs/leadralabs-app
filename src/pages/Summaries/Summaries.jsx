@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { ArrowClockwise } from '@phosphor-icons/react';
 import { useApi } from '../../hooks/useApi';
 import CapabilityBadge from '../../components/CapabilityBadge/CapabilityBadge';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
@@ -127,7 +128,8 @@ function MonthlyTab() {
     <div className={styles.monthlyWrapper}>
       <div className={styles.refreshRow}>
         <button type="button" className={styles.refreshButton} onClick={load}>
-          ↻ Refresh patterns
+          <ArrowClockwise size={14} weight="regular" color="currentColor" />
+          Refresh patterns
         </button>
       </div>
 

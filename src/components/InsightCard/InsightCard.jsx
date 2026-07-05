@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ArrowClockwise } from '@phosphor-icons/react';
 import { useApi } from '../../hooks/useApi';
 import styles from './InsightCard.module.css';
 
@@ -59,10 +60,13 @@ export default function InsightCard({ insight }) {
 
       {!exhausted && refreshesRemaining > 0 && (
         <button type="button" className={styles.refreshLink} onClick={handleRefresh} disabled={refreshing}>
-          ↻ This doesn't quite fit — show me another
-          <span className={styles.remaining}>
-            {' '}
-            ({refreshesRemaining} option{refreshesRemaining === 1 ? '' : 's'} remaining)
+          <ArrowClockwise size={14} weight="regular" color="currentColor" />
+          <span>
+            This doesn't quite fit — show me another
+            <span className={styles.remaining}>
+              {' '}
+              ({refreshesRemaining} option{refreshesRemaining === 1 ? '' : 's'} remaining)
+            </span>
           </span>
         </button>
       )}
