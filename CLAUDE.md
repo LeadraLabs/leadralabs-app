@@ -2,20 +2,22 @@
 
 ## Project overview
 React web app for LEADRA leadership development platform.
-Vite + React → Cloudflare Pages → connects to Railway backend + Supabase auth.
+Vite + React → Cloudflare Pages → connects to Railway backend (`api.leadralabs.com`) + Supabase auth.
 
 ## Current status
 - [x] Initial build complete
 - [x] Connected to real Supabase project and Railway backend
 - [x] Full flow tested live: signup → email confirmation → login → onboarding → journal entry →
       Claude insight → micro-action refresh → insights list → monthly patterns
+- [x] Feedback button verified live end to end — real submission created a GitHub issue at
+      https://github.com/LeadraLabs/leadralabs-feedback/issues/1
+- [x] Backend migrated to custom domain `api.leadralabs.com` (was hitting Cisco Umbrella
+      interception on the shared `*.up.railway.app` subdomain on a work laptop — see "Bugs found
+      and fixed" below)
 - [ ] Not yet tested: Google OAuth sign-in, weekly summary generation (cron-only, no frontend
       trigger)
 - [ ] In progress: Cloudflare Pages deployment, Supabase confirmation-email redirect fix (both
       being done manually via dashboard — see BACKLOG.md)
-- [x] Feedback button built (floating action button + modal, in `AppLayout` on every authenticated
-      screen) — code complete and builds clean, not yet live-tested (needs `GITHUB_FEEDBACK_TOKEN`
-      on the backend, see leadralabs-backend/BACKLOG.md)
 
 ## What's been built
 - Full Vite + React 18 app, plain JavaScript, CSS Modules only, no UI libraries
@@ -93,6 +95,11 @@ Every core flow has now been verified end to end with real data, not mocks:
    Fixed with a request-id guard in `Summaries.jsx` so only the latest request's result is applied.
 5. `.env`'s `VITE_API_URL` had a typo (`yleadralabs-backend...` missing `https://`) — fixed locally
    (not committed, `.env` is gitignored).
+6. **The shared `*.up.railway.app` backend subdomain was being intercepted by Cisco Umbrella/
+   OpenDNS** on a work laptop — every request served a fake "malware" block page via a full
+   untrusted cert chain (Cisco Umbrella Root CA → ... → leaf cert for the domain). Confirmed
+   device-level, not network-level (persisted even over a phone hotspot). Fixed by moving the
+   backend to `api.leadralabs.com` as a custom domain; `.env`'s `VITE_API_URL` updated to match.
 
 ## Known issues / backend gaps found while building
 1. **No endpoint to update mood on an existing journal entry.** Mood is saved to `localStorage` for
@@ -106,11 +113,14 @@ Every core flow has now been verified end to end with real data, not mocks:
 
 ## Next session — pick up here
 - Test Google OAuth sign-in (not yet tried — needs a real browser interaction with Google's login)
-- Fix the Supabase confirmation-email redirect URL (Authentication → URL Configuration)
-- Set up Cloudflare Pages deployment (build command `npm run build`, output `dist`)
+- Finish the Supabase confirmation-email redirect fix and Cloudflare Pages deployment (both
+  in progress via dashboard — see BACKLOG.md)
+- Once Cloudflare Pages is live: set `VITE_API_URL=https://api.leadralabs.com` in its env vars,
+  add its `.pages.dev` URL to Supabase's Redirect URLs, and consider locking backend CORS to it
 - Consider addressing the backend gaps above
 
 ## Key URLs
-- Backend API: https://leadralabs-backend-production.up.railway.app
+- Backend API: https://api.leadralabs.com
 - Supabase project: leadralabs-production (Asia-Pacific), ref `ruqpvieexhwndzwhvlst`
+- Feedback repo: https://github.com/LeadraLabs/leadralabs-feedback (private)
 - Deployed app: [Cloudflare Pages URL — to be added]

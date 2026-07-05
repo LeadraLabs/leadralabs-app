@@ -2,20 +2,12 @@
 
 ## In progress
 - Cloudflare Pages setup + Supabase redirect fix in progress (Kathleen doing the dashboard steps)
-- Backend push blocked: `leadralabs-backend` git push returned 403 "Write access to repository not
-  granted" — commit is sitting locally, needs a GitHub credentials/permissions check before retry
-
-## High priority — pre-launch
-- Set up `api.leadralabs.com` as a custom domain for the backend (see leadralabs-backend/BACKLOG.md)
-  — the shared `*.up.railway.app` subdomain gets intercepted by Cisco Umbrella/OpenDNS on at least
-  one work laptop, serving a fake "malware" block page instead of the real API. Once the custom
-  domain is live, update `VITE_API_URL` here and on Cloudflare Pages.
 
 ## Up next
-- Test Google OAuth sign-in end to end (not yet tried)
-- Cloudflare Pages: once deployed, add the `.pages.dev` URL to Supabase's Redirect URLs
-- Feedback button: needs `GITHUB_FEEDBACK_TOKEN` set on the backend before submissions actually
-  create GitHub issues (frontend side is done and builds clean, not yet live-tested)
+- Test Google OAuth sign-in end to end (not yet tried) — deferred until after deployment
+- Cloudflare Pages: once deployed, add the `.pages.dev` URL to Supabase's Redirect URLs, and set
+  `VITE_API_URL=https://api.leadralabs.com` in its environment variables
+- CORS domain lock on backend before launch, once the Cloudflare Pages domain is known
 
 ## Backend gaps found during this build (not frontend bugs — see CLAUDE.md for detail)
 - No endpoint to update `mood_rating` on an already-submitted journal entry
@@ -46,7 +38,14 @@
 - Monthly patterns occasionally showed a false "couldn't load" error due to a React StrictMode
   double-fetch race condition overwriting a successful response — fixed with a request-id guard
 
+## Resolved — custom domain + feedback
+- Backend moved from the shared `*.up.railway.app` subdomain to `api.leadralabs.com` — the shared
+  subdomain was being intercepted by Cisco Umbrella/OpenDNS on a work laptop (device-level, not
+  network-level — persisted even over a phone hotspot), serving a fake "malware" block page.
+  `VITE_API_URL` updated locally to the new domain.
+- Feedback button verified live end to end: a real submission created
+  https://github.com/LeadraLabs/leadralabs-feedback/issues/1
+
 ## Open decisions
 - Forgot password flow (currently placeholder link)
 - Subscription management UI (currently placeholder link)
-- CORS domain lock on backend before launch
