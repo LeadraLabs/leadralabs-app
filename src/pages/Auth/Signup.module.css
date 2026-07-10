@@ -83,7 +83,7 @@
 .submitButton {
   min-height: 48px;
   margin-top: 20px;
-  background: var(--gold);
+  background: var(--navy);
   color: var(--warm-white);
   border: none;
   border-radius: 999px;
@@ -93,7 +93,8 @@
 }
 
 .submitButton:hover:not(:disabled) {
-  background: var(--gold-hover);
+  background: var(--navy);
+  opacity: 0.9;
 }
 
 .submitButton:disabled {

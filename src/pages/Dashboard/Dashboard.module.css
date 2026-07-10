@@ -8,12 +8,38 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .greeting {
   font-size: 20px;
   font-weight: 600;
   color: var(--navy);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.newReflectionButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 16px;
+  background: var(--gold);
+  color: var(--warm-white);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.newReflectionButton:hover {
+  background: var(--gold-hover);
 }
 
 .focusCard {
@@ -72,6 +98,41 @@
   gap: 6px;
   font-weight: 600;
   color: var(--gold-hover);
+}
+
+.streakCard {
+  background: var(--warm-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+}
+
+.streakDots {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.streakDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--warm-grey);
+}
+
+.streakFilled {
+  background: var(--gold);
+}
+
+.streakStats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.streakStat {
+  font-size: 14px;
+  color: var(--text-muted);
 }
 
 .sectionLabel {
@@ -186,21 +247,24 @@
   font-style: italic;
 }
 
-.journalButton {
+.capabilitiesCard {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 8px;
-  text-align: center;
   min-height: 48px;
-  background: var(--gold);
-  color: var(--warm-white);
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 15px;
-  transition: background 0.2s ease;
+  padding: 14px 18px;
+  background: var(--warm-white);
+  border: 1px solid var(--navy);
+  border-radius: 16px;
+  color: var(--navy);
 }
 
-.journalButton:hover {
-  background: var(--gold-hover);
+.capabilitiesCard:hover {
+  background: var(--warm-grey);
+}
+
+.capabilitiesCardText {
+  font-weight: 600;
+  font-size: 14px;
 }

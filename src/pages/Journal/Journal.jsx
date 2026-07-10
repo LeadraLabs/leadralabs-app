@@ -95,7 +95,7 @@ export default function Journal() {
         <div className={styles.modeCards}>
           <button type="button" className={styles.modeCard} onClick={() => setMode('free')}>
             <PencilSimple size={32} weight="regular" color="var(--navy)" className={styles.modeIcon} />
-            <span className={styles.modeTitle}>Free write</span>
+            <span className={styles.modeTitle}>Free text</span>
             <span className={styles.modeSubtitle}>Write whatever's on your mind</span>
           </button>
           <button type="button" className={styles.modeCard} onClick={() => setMode('guided')}>

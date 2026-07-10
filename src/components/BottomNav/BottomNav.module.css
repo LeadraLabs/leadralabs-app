@@ -33,7 +33,7 @@
 }
 
 .active {
-  color: var(--gold);
+  color: var(--navy);
 }
 
 @media (min-width: 768px) {
@@ -65,7 +65,7 @@
   }
 
   .active {
-    background: var(--gold-light);
+    background: rgba(26, 53, 96, 0.08);
   }
 
   .label {

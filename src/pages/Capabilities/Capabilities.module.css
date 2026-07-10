@@ -1,0 +1,66 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.intro {
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: var(--warm-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 20px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cardName {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.cardSection {
+  margin-bottom: 12px;
+}
+
+.cardSection:last-child {
+  margin-bottom: 0;
+}
+
+.cardLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cardText {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}

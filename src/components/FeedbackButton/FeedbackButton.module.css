@@ -144,7 +144,7 @@
 .primaryButton {
   width: 100%;
   min-height: 48px;
-  background: var(--gold);
+  background: var(--navy);
   color: var(--warm-white);
   border: none;
   border-radius: 999px;
@@ -154,7 +154,8 @@
 }
 
 .primaryButton:hover:not(:disabled) {
-  background: var(--gold-hover);
+  background: var(--navy);
+  opacity: 0.9;
 }
 
 .primaryButton:disabled {

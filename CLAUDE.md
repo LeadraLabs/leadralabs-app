@@ -14,6 +14,8 @@ Vite + React → Cloudflare Pages → connects to Railway backend (`api.leadrala
 - [x] Backend migrated to custom domain `api.leadralabs.com` (was hitting Cisco Umbrella
       interception on the shared `*.up.railway.app` subdomain on a work laptop — see "Bugs found
       and fixed" below)
+- [x] UAT Batch 1 (10 July 2026): onboarding/profile restructure, dashboard rework, navy/gold
+      colour rebalance, copy fixes — see "UAT Batch 1" section below for full detail
 - [ ] Not yet tested: Google OAuth sign-in, weekly summary generation (cron-only, no frontend
       trigger)
 - [ ] In progress: Cloudflare Pages deployment, Supabase confirmation-email redirect fix (both
@@ -22,14 +24,18 @@ Vite + React → Cloudflare Pages → connects to Railway backend (`api.leadrala
 ## What's been built
 - Full Vite + React 18 app, plain JavaScript, CSS Modules only, no UI libraries
 - Routing: `/login`, `/signup`, `/onboarding`, `/dashboard`, `/journal`, `/journal/success/:id`,
-  `/insights`, `/summaries`, `/profile` — protected routes redirect to `/login`
+  `/insights`, `/summaries`, `/profile`, `/capabilities` — protected routes redirect to `/login`
 - Supabase auth (email/password + Google OAuth button) via `src/hooks/useAuth.js`
 - `src/hooks/useApi.js` — every backend call, with Supabase bearer token attached, matching the
   real `leadralabs-backend` routes
-- All screens from the spec: Login, Signup, 3-step Onboarding, Dashboard (today's focus, mood
-  check-in, weekly summary preview, recent entries, quick journal button), Journal (mode select,
-  free write, guided write), Journal success (insight card + micro-action refresh), Insights list,
-  Summaries (weekly/monthly tabs), Profile
+- All screens from the spec: Login, Signup, 4-step Onboarding (welcome, how-it-works, multi-select
+  focus areas, career level/people management), Dashboard (greeting + New Reflection header,
+  today's focus, streak card, mood check-in, weekly summary preview, recent reflections,
+  leadership-capabilities link), Journal (mode select — Free text/Guided, free write, guided
+  write), Journal success (insight card + micro-action refresh), Insights list, Summaries
+  (weekly/monthly tabs), Profile (details, "My development" — focus areas/career level/people
+  management/goals/context/self-rating sliders, subscription, account), Capabilities (static
+  reference page, one card per capability)
 - Mobile bottom nav that becomes a left sidebar at 768px+
 - `src/utils/onboarding.js` — `needsOnboarding()` checks the user's profile after auth; both Login
   and the public-route guard use it to send users who haven't picked a `primary_capability` yet to
@@ -62,7 +68,8 @@ Vite + React → Cloudflare Pages → connects to Railway backend (`api.leadrala
 Every core flow has now been verified end to end with real data, not mocks:
 - **Signup** → email confirmation (this Supabase project requires it) → **Login** correctly routes
   new users to `/onboarding`, returning users to `/dashboard`
-- **Onboarding** — all 3 steps; capability selection saves via `POST /users/profile` and persists
+- **Onboarding** — all 4 steps; multi-select focus areas + career level + people management save
+  via a single `POST /users/profile` and persist (re-verified in UAT Batch 1, 10 July 2026)
 - **Journal submission (free write)** — entry saves correctly; Claude generates a real insight
   (sentiment, themes, 3 micro-actions, coaching note)
 - **Micro-action refresh** — cycles through all 3 options, decrements the remaining count
@@ -74,9 +81,60 @@ Every core flow has now been verified end to end with real data, not mocks:
   list, mood strip, and weekly-summary empty state all correct
 - **Monthly patterns** — calls Claude live, renders overall_theme/patterns/encouragement exactly to
   spec (navy featured card, capability badge on pattern cards, gold-tinted encouragement)
-- **Profile** — streak dots, entry count, member-since date, and primary_capability selection all
-  correct with real data
+- **Profile** — "My development" section (priority focus areas, career level, people management,
+  development goals, current context, per-capability self-rating sliders) all save correctly and
+  persist with real data (verified in UAT Batch 1). Streak dots/entry count/member-since date
+  moved to Dashboard.
 - Sign out works and correctly redirects to `/login`
+
+## UAT Batch 1 (10 July 2026)
+Addressed `leadralabs-feedback` issues #2, #3, #4, #5, #6, #7, #8, #10, #15, agreed with Kathleen
+and Nova. Depended on a backend migration (`leadralabs-backend/migrations/2026-07-10-uat-batch-1.sql`)
+which was confirmed run against live Supabase before building against the new columns.
+
+- **Onboarding is now 4 steps.** Step 3 ("What would you like to work on first?") is multi-select,
+  saving `primary_capabilities` (array, replacing the old singular `primary_capability`). New
+  Step 4 collects `career_level` (4-point scale) and `manages_others` (boolean) in the same final
+  `POST /users/profile` call as Step 3's selections — one save at the end, not per-step.
+- **Critical fix:** `src/utils/onboarding.js`'s `needsOnboarding()` was still checking the old
+  `profile.primary_capability` singular field. Since the backend upsert no longer writes that
+  field going forward, this would have sent every user back into onboarding on next login if left
+  unfixed. Now checks `primary_capabilities.length`.
+- **Profile screen** gained a "My development" section: priority focus areas (multi-select,
+  editable version of onboarding Step 3), career level, people management, development goals
+  (free text, saves on blur), current context (free text, saves on blur, with helper text), and
+  one 1–5 self-rating slider per capability (saves to `capability_self_ratings` JSON on release).
+  Fixed the "buttons feel slow" complaint (#3) by tracking which specific capability button is
+  mid-save (`savingField` state) instead of disabling the whole grid during any one save.
+  "My streak" section removed from Profile — moved to Dashboard (see below).
+- **Dashboard restructure:** greeting now prefers `profile.full_name` over the old email-prefix
+  fallback; `+ New Reflection` moved to the header (kept as the one gold-filled CTA on the
+  screen); streak card moved here from Profile; "Recent journal entries" relabelled "Recent
+  reflections"; new link to `/capabilities`.
+- **New `/capabilities` page** (`src/pages/Capabilities/Capabilities.jsx`) — static reference
+  content, one card per capability with "Why it matters" / "What you'll gain" placeholder copy
+  (marked `{/* NOVA: edit copy here */}` in both the component and `src/config/capabilities.js`,
+  where the copy actually lives as `whyItMatters`/`whatYoullGain` fields). **Deviation from the
+  original spec:** not added as a 6th bottom-nav/sidebar tab (would crowd the 5-item mobile nav)
+  — reachable via a card on Dashboard and a link on Profile instead, per explicit user decision.
+- **Navy/gold colour rebalance:** switched all full-width primary-CTA buttons (Login, Signup,
+  Onboarding Next/Let's go, Journal submit, Journal success "Back to dashboard", Feedback modal
+  submit) and the bottom-nav/sidebar active state from gold fill to navy fill. Left gold on:
+  Dashboard's single `+ New Reflection` CTA, small dots/bullets/badges, selected-state borders on
+  cards/chips/inputs, and the today's-focus/prompt highlight cards — these match the prompt's own
+  examples of acceptable small-accent gold use. No hex values changed, only which variable each
+  rule references.
+- **Copy/layout fixes:** "Free write" → "Free text" (Journal mode selector); bottom nav "Home" →
+  "Dashboard"; `.savedButton` (journal success "Back to dashboard") now uses
+  `display: flex; align-items: center; justify-content: center` instead of relying on
+  `text-align` + `min-height`, fixing the vertical-centering bug (#8).
+- Not built this batch, flagged only per the prompt: #9 (rate/mark-done micro-actions — scope
+  unconfirmed with Nova), #11 (thumbs up on summaries — low priority), #14 (progress graph across
+  the 5 pillars — its own future batch, would be fed by `capability_self_ratings` history).
+- Verified end-to-end against the live backend with a real test account: onboarding save,
+  `needsOnboarding` no longer loops a fully-onboarded user back to `/onboarding`, all six new
+  Profile fields round-trip correctly (confirmed via network payload inspection), and every
+  touched screen checked at a 375px viewport with no overflow/breakage.
 
 ## Bugs found and fixed this session
 1. **Login always went to `/dashboard`, skipping onboarding entirely** for anyone who signed up

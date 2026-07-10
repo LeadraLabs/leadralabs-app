@@ -162,7 +162,7 @@
 
 .submitButton {
   min-height: 48px;
-  background: var(--gold);
+  background: var(--navy);
   color: var(--warm-white);
   border: none;
   border-radius: 999px;
@@ -172,7 +172,8 @@
 }
 
 .submitButton:hover:not(:disabled) {
-  background: var(--gold-hover);
+  background: var(--navy);
+  opacity: 0.9;
 }
 
 .submitButton:disabled {
@@ -212,9 +213,12 @@
 }
 
 .savedButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 48px;
   padding: 0 28px;
-  background: var(--gold);
+  background: var(--navy);
   color: var(--warm-white);
   border: none;
   border-radius: 999px;
@@ -223,5 +227,6 @@
 }
 
 .savedButton:hover {
-  background: var(--gold-hover);
+  background: var(--navy);
+  opacity: 0.9;
 }

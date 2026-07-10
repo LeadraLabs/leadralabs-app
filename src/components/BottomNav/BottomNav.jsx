@@ -3,7 +3,7 @@ import { House, PencilSimple, Lightbulb, CalendarBlank, UserCircle } from '@phos
 import styles from './BottomNav.module.css';
 
 const TABS = [
-  { icon: House, label: 'Home', to: '/dashboard' },
+  { icon: House, label: 'Dashboard', to: '/dashboard' },
   { icon: PencilSimple, label: 'Journal', to: '/journal' },
   { icon: Lightbulb, label: 'Insights', to: '/insights' },
   { icon: CalendarBlank, label: 'Summaries', to: '/summaries' },

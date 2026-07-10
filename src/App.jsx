@@ -14,6 +14,7 @@ import JournalSuccess from './pages/Journal/JournalSuccess';
 import Insights from './pages/Insights/Insights';
 import Summaries from './pages/Summaries/Summaries';
 import Profile from './pages/Profile/Profile';
+import Capabilities from './pages/Capabilities/Capabilities';
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
@@ -90,6 +91,7 @@ function AppRoutes() {
         <Route path="/insights" element={<Insights />} />
         <Route path="/summaries" element={<Summaries />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/capabilities" element={<Capabilities />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/dashboard" replace />} />

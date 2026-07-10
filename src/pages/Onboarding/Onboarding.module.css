@@ -118,6 +118,42 @@
   color: var(--text-muted);
 }
 
+.fieldLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 10px;
+  margin-top: 24px;
+}
+
+.fieldLabel:first-of-type {
+  margin-top: 0;
+}
+
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pill {
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--warm-white);
+  border: 2px solid var(--border);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.pillSelected {
+  border-color: var(--navy);
+  background: var(--gold-light);
+  color: var(--navy);
+}
+
 .error {
   margin-top: 12px;
   font-size: 13px;
@@ -133,7 +169,7 @@
 .primaryButton {
   width: 100%;
   min-height: 48px;
-  background: var(--gold);
+  background: var(--navy);
   color: var(--warm-white);
   border: none;
   border-radius: 999px;
@@ -143,7 +179,8 @@
 }
 
 .primaryButton:hover:not(:disabled) {
-  background: var(--gold-hover);
+  background: var(--navy);
+  opacity: 0.9;
 }
 
 .primaryButton:disabled {

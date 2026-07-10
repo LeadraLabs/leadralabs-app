@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { PencilSimple, ArrowClockwise, ArrowRight } from '@phosphor-icons/react';
+import { Plus, ArrowClockwise, ArrowRight } from '@phosphor-icons/react';
 import { useAuth } from '../../hooks/useAuth';
 import { useApi } from '../../hooks/useApi';
 import { formatEntryDate, getTimeOfDayGreeting } from '../../utils/date';
@@ -22,12 +22,28 @@ function todayKey() {
   return new Date().toISOString().slice(0, 10);
 }
 
+function dayHasEntry(entries, dayOffset) {
+  const target = new Date();
+  target.setDate(target.getDate() - dayOffset);
+  return entries.some((e) => {
+    const d = new Date(e.created_at);
+    return d.getFullYear() === target.getFullYear() && d.getMonth() === target.getMonth() && d.getDate() === target.getDate();
+  });
+}
+
 export default function Dashboard() {
   const { user } = useAuth();
-  const { getJournalEntries, getRecentInsights, getLatestSummary, getJournalEntry, refreshMicroAction } =
-    useApi();
+  const {
+    getProfile,
+    getJournalEntries,
+    getRecentInsights,
+    getLatestSummary,
+    getJournalEntry,
+    refreshMicroAction,
+  } = useApi();
 
   const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState(null);
   const [entries, setEntries] = useState([]);
   const [todayInsight, setTodayInsight] = useState(null);
   const [todayEntry, setTodayEntry] = useState(null);
@@ -50,13 +66,16 @@ export default function Dashboard() {
     async function load() {
       setLoading(true);
 
-      const [entriesResult, insightsResult, summaryResult] = await Promise.allSettled([
+      const [profileResult, entriesResult, insightsResult, summaryResult] = await Promise.allSettled([
+        getProfile(),
         getJournalEntries(),
         getRecentInsights(),
         getLatestSummary(),
       ]);
 
       if (cancelled) return;
+
+      if (profileResult.status === 'fulfilled') setProfile(profileResult.value);
 
       const loadedEntries = entriesResult.status === 'fulfilled' ? entriesResult.value : [];
       setEntries(loadedEntries);
@@ -83,7 +102,7 @@ export default function Dashboard() {
     return () => {
       cancelled = true;
     };
-  }, [getJournalEntries, getRecentInsights, getLatestSummary]);
+  }, [getProfile, getJournalEntries, getRecentInsights, getLatestSummary]);
 
   const handleMoodTap = (value) => {
     setMood(String(value));
@@ -132,7 +151,8 @@ export default function Dashboard() {
 
   if (loading) return <LoadingSpinner />;
 
-  const firstName = user?.user_metadata?.full_name?.split(' ')[0] || user?.email?.split('@')[0] || 'there';
+  const firstName =
+    profile?.full_name?.split(' ')[0] || user?.user_metadata?.full_name?.split(' ')[0] || 'there';
   const recentEntries = entries.slice(0, 3);
   const summaryPreview = summary?.summary
     ? summary.summary.split('. ').slice(0, 2).join('. ') + (summary.summary.includes('.') ? '.' : '')
@@ -144,7 +164,13 @@ export default function Dashboard() {
         <h1 className={styles.greeting}>
           {getTimeOfDayGreeting()}, {firstName}
         </h1>
-        <NotificationBell />
+        <div className={styles.headerActions}>
+          <NotificationBell />
+          <Link to="/journal" className={styles.newReflectionButton}>
+            <Plus size={16} weight="bold" color="currentColor" />
+            New Reflection
+          </Link>
+        </div>
       </div>
 
       {todayInsight ? (
@@ -173,6 +199,21 @@ export default function Dashboard() {
           </Link>
         </div>
       )}
+
+      <div className={styles.streakCard}>
+        <p className={styles.sectionLabel}>My streak</p>
+        <div className={styles.streakDots}>
+          {Array.from({ length: 7 }).map((_, i) => {
+            const offset = 6 - i;
+            const filled = dayHasEntry(entries, offset);
+            return <span key={i} className={`${styles.streakDot} ${filled ? styles.streakFilled : ''}`} />;
+          })}
+        </div>
+        <div className={styles.streakStats}>
+          <span className={styles.streakStat}>{entries.length} total reflections</span>
+          {todayInsight && <span className={styles.streakStat}>Moment completed today</span>}
+        </div>
+      </div>
 
       <div className={styles.moodSection}>
         <p className={styles.sectionLabel}>How are you feeling right now?</p>
@@ -211,7 +252,7 @@ export default function Dashboard() {
       </div>
 
       <div className={styles.entriesSection}>
-        <p className={styles.sectionLabel}>Recent journal entries</p>
+        <p className={styles.sectionLabel}>Recent reflections</p>
         {recentEntries.length === 0 && <p className={styles.emptyNote}>No entries yet.</p>}
         {recentEntries.map((entry) => (
           <div key={entry.id} className={styles.entryCard} onClick={() => toggleExpand(entry.id)}>
@@ -240,9 +281,9 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <Link to="/journal" className={styles.journalButton}>
-        <PencilSimple size={18} weight="bold" color="currentColor" />
-        Write today's entry
+      <Link to="/capabilities" className={styles.capabilitiesCard}>
+        <span className={styles.capabilitiesCardText}>Learn about the 5 leadership capabilities</span>
+        <ArrowRight size={14} weight="regular" color="currentColor" />
       </Link>
     </div>
   );

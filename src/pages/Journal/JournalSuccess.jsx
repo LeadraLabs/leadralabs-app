@@ -28,7 +28,7 @@ export default function JournalSuccess() {
         Insight ready <Sparkle size={20} weight="regular" color="var(--gold)" />
       </h1>
       <InsightCard insight={insight} />
-      <Link to="/dashboard" className={styles.savedButton} style={{ textAlign: 'center' }}>
+      <Link to="/dashboard" className={styles.savedButton}>
         Back to dashboard
       </Link>
       <Link to="/journal" className={styles.backLink} style={{ alignSelf: 'center' }}>
