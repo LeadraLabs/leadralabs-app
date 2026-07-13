@@ -1,5 +1,6 @@
 import { ArrowLeft } from '@phosphor-icons/react';
 import { CAPABILITIES, getCapability } from '../../config/capabilities';
+import { getDailyPrompt } from '../../config/guidedPrompts';
 import CapabilityIcon from '../../components/CapabilityIcon/CapabilityIcon';
 import WellbeingCheckin from '../../components/WellbeingCheckin/WellbeingCheckin';
 import styles from './Journal.module.css';
@@ -24,6 +25,7 @@ export default function GuidedWrite({
   onBack,
 }) {
   const selected = getCapability(capability);
+  const prompt = capability ? getDailyPrompt(capability) : null;
   const canSubmit = !!capability && content.trim().length >= MIN_LENGTH && !submitting;
 
   return (
@@ -49,7 +51,7 @@ export default function GuidedWrite({
 
       {selected && (
         <>
-          <div className={styles.promptCard}>{selected.prompt}</div>
+          <div className={styles.promptCard}>{prompt}</div>
 
           <textarea
             className={styles.textarea}
