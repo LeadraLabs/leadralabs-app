@@ -16,6 +16,10 @@ Vite + React → Cloudflare Pages → connects to Railway backend (`api.leadrala
       and fixed" below)
 - [x] UAT Batch 1 (10 July 2026): onboarding/profile restructure, dashboard rework, navy/gold
       colour rebalance, copy fixes — see "UAT Batch 1" section below for full detail
+- [x] UAT Round 1 (13 July 2026): fixed the onboarding-skip router bug, onboarding now fully
+      self-contained, rebuilt the wellbeing check-in, forgot-password flow, capability detail view,
+      rotating guided prompts, capability-chip grid fix, full copy/naming sweep — see "UAT Round 1"
+      section below for full detail
 - [ ] Not yet tested: Google OAuth sign-in, weekly summary generation (cron-only, no frontend
       trigger)
 - [ ] In progress: Cloudflare Pages deployment, Supabase confirmation-email redirect fix (both
@@ -136,6 +140,82 @@ which was confirmed run against live Supabase before building against the new co
   Profile fields round-trip correctly (confirmed via network payload inspection), and every
   touched screen checked at a 375px viewport with no overflow/breakage.
 
+## UAT Round 1 (13 July 2026)
+Full session covering Part A (investigate-first items) and Part B (direct fixes) from the UAT
+Round 1 prompt.
+
+**Part A — investigated, confirmed cause, then fixed:**
+- **A1 — onboarding-skip bug, root cause found:** `src/App.jsx`'s catch-all route
+  (`path="*"`) was hardcoded to `<Navigate to="/dashboard" replace />` with no onboarding check at
+  all. Since the Supabase email-confirmation redirect is still pointing at an unreachable URL (see
+  BACKLOG.md), a real signup landing on any unrecognised URL after confirming their email hit this
+  catch-all and skipped onboarding completely, regardless of `primary_capabilities`. Fixed by
+  replacing the catch-all with a new `CatchAllRoute` component that runs the same
+  `needsOnboarding()` check as `PublicRoute` before deciding where to send the user.
+- **A2 — Onboarding vs Profile field audit:** confirmed Onboarding only collected focus areas,
+  career level, and people management; the 5 capability self-rating sliders, development goals,
+  and current context existed only in Profile. Added a new Onboarding step 5 ("Where you're
+  starting from") collecting all three, so onboarding alone now fully builds a new user's profile
+  — Profile is purely for later editing, per Kathleen's confirmation.
+- **A3 — wellbeing check-in, confirmed never built:** checked the full git history and current
+  code; only a plain 1–10 mood-icon strip existed on the journal screen, no mood tags/growth
+  rating/wellbeing sliders anywhere, and no backend columns for them. Rebuilt from the original
+  spec: new shared `WellbeingCheckin` component (mood tags, 1–3 star Growth Rating, six 1–5
+  wellbeing sliders — Sleep Quality, Nutrition, Movement, Stress Load, Physical Health,
+  Relationships, all optional, labelled "informs AI insights") rendered once per entry on both
+  Free write and Guided write. Required a schema change — see `leadralabs-backend`'s
+  `migrations/2026-07-13-wellbeing-checkin.sql`, confirmed run against production and verified with
+  a real end-to-end journal submission.
+
+**Part B — direct fixes:**
+- **B1:** Forgot password flow wired up via Supabase (`resetPasswordForEmail` /
+  `updateUser`) — new `/forgot-password` and `/reset-password` screens. Verified live: reset email
+  send confirmed against the real Supabase project.
+- **B2:** Removed every em dash across the app (frontend and backend user-facing copy, and the
+  Claude prompt text), capitalised both words in every capability title (Emotional Regulation,
+  Critical Thinking, Situational Judgement, Change Agility), renamed Influence → Influencing
+  everywhere (frontend `CAPABILITIES` config is the single source of truth; backend capability
+  labels and Claude prompts updated to match). Added a career-level instructional line to
+  Onboarding, renamed the people-management step heading to "A bit more about you".
+- **B3:** Profile self-rating sliders now show "Very poor"/"Excellent" labels and use each
+  capability's own icon colour as the slider accent colour; removed the `disabled` state that was
+  making sliders feel sticky right after a drag release (it was disabling the input at the exact
+  moment `onMouseUp` fired). Added a real capability detail view at `/capabilities/:key` with a
+  back button (`navigate(-1)`, so it returns wherever the user actually came from — Profile's
+  rating rows or the `/capabilities` list both link into it now).
+- **B4:** Removed the orange "What moment shaped your day" banner (duplicated New Reflection +
+  Journal nav). Renamed "Learn about the 5 leadership capabilities" → "Learn about Leadership
+  Capabilities" (no hardcoded count). Greeting and streak-card totals were already correctly
+  implemented in code — verified live that both work once real data exists (Kathleen's test
+  account had 0 entries and no saved name at the time she reported these, which is why they looked
+  broken).
+- **B5:** Renamed the "Insights" nav item and its user-facing copy to "Reflections" throughout
+  (bottom nav, empty-state text, journal-success fallback links). Left the `/insights` route path
+  and internal `insight`/`InsightCard` naming as-is — that refers to the AI-generated insight
+  object, a different concept from the reflections-list screen.
+- **B6 (frontend):** Reordered `InsightCard` so the coaching note appears above the micro-action.
+- **B7:** Replaced the single fixed guided-journal prompt with a pool of 6 prompts per capability
+  (`src/config/guidedPrompts.js`), one shown per day per capability picked deterministically by
+  day-of-year (stable within a day, varies day to day).
+- **B9:** Full navy-dominance visual pass across Login, Signup, Onboarding, Dashboard, Journal,
+  Reflections, Summaries, Profile — confirmed navy is already dominant (headings, primary CTAs,
+  active nav state) following the prior UAT Batch 1 rebalance; no further colour changes needed.
+- **B10:** Redesigned the journal-entry capability chips from a horizontally-scrolling pill row to
+  a 5-column grid of square buttons (icon above, name wrapped below). Found and fixed a real CSS
+  bug along the way: `grid-template-columns: repeat(5, 1fr)` doesn't shrink tracks below their
+  content's natural minimum size by default, so the row was still overflowing at narrow widths even
+  though the math should have fit — fixed with `min-width: 0` on the grid items. Verified at 360px
+  and 375px, no horizontal scroll.
+
+Backend-only changes (B6 capability anchoring, B8 person consistency, B2 backend copy/Influence
+rename) are documented in `leadralabs-backend`'s CLAUDE.md.
+
+Verified end-to-end against the live backend with the `claude-code-test@leadralabs.com` account: a
+real Guided-mode Situational Judgement entry, submitted with wellbeing check-in data filled in,
+correctly saved, generated a Situational-Judgement-anchored insight (not drifting to another
+capability), rendered with the coaching note above the micro-action, and updated the Dashboard
+streak card and Recent reflections list correctly.
+
 ## Bugs found and fixed this session
 1. **Login always went to `/dashboard`, skipping onboarding entirely** for anyone who signed up
    through the email-confirmation path (i.e. everyone, since this Supabase project requires it).
@@ -166,10 +246,18 @@ which was confirmed run against live Supabase before building against the new co
    loses it (graceful fallback in place, links to `/insights`).
 3. **`GET /journal/entries` caps at 30.** Profile's total-entries count and streak will undercount
    for long-time users eventually.
-4. **Supabase auth email templates** redirect to an unreachable URL on confirmation — cosmetic
-   (confirmation still works), but worth fixing before real users sign up.
+4. **Supabase auth email templates redirect to an unreachable URL on confirmation.** Not just
+   cosmetic — this was the real trigger behind the A1 onboarding-skip bug (13 July 2026): a user
+   landing on that unreachable URL after confirming would hit the app's catch-all route. The
+   catch-all itself is now fixed (always checks onboarding status), so this no longer skips
+   onboarding — but the redirect still needs fixing before real users sign up, since it's still a
+   broken/confusing landing experience on its own. **Flagging for Kathleen: needs a decision on
+   what the confirmation redirect URL should actually be (the deployed Cloudflare Pages URL, once
+   live) and the Supabase dashboard update to match.**
 
 ## Next session — pick up here
+- **Decision needed from Kathleen:** confirm the Supabase confirmation-email redirect URL once
+  Cloudflare Pages is live (see known issue #4 above)
 - Test Google OAuth sign-in (not yet tried — needs a real browser interaction with Google's login)
 - Finish the Supabase confirmation-email redirect fix and Cloudflare Pages deployment (both
   in progress via dashboard — see BACKLOG.md)

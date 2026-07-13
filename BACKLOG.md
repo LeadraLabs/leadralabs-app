@@ -1,7 +1,11 @@
 # LEADRA App — Backlog
 
 ## In progress
-- Cloudflare Pages setup + Supabase redirect fix in progress (Kathleen doing the dashboard steps)
+- Cloudflare Pages setup + Supabase redirect fix in progress (Kathleen doing the dashboard steps).
+  **Higher priority now:** confirmed 13 July 2026 that the unreachable confirmation redirect was
+  the real trigger behind new users skipping onboarding (see CLAUDE.md "Known issues" #4) — the
+  router bug it exposed is fixed, but the redirect itself is still broken and needs the Cloudflare
+  Pages URL decided before it can be pointed correctly.
 
 ## Up next
 - Test Google OAuth sign-in end to end (not yet tried) — deferred until after deployment
@@ -70,6 +74,27 @@
 - Feedback button verified live end to end: a real submission created
   https://github.com/LeadraLabs/leadralabs-feedback/issues/1
 
+## Resolved — UAT Round 1 (13 July 2026)
+- **A1 fix:** catch-all route (`path="*"`) was hardcoded to `/dashboard` with no onboarding check —
+  fixed to run the same `needsOnboarding()` check as every other guarded route
+- **A2 fix:** Onboarding gained a 5th step (development goals, current context, per-capability
+  self-ratings) so it fully builds a profile in one flow — Profile is now purely for later editing
+- **A3 fix:** rebuilt the wellbeing check-in (mood tags, Growth Rating stars, 6 wellbeing sliders)
+  on the journal entry screen — confirmed via git history this never existed in this codebase
+  before; needed `leadralabs-backend/migrations/2026-07-13-wellbeing-checkin.sql`, now run and
+  confirmed live
+- Forgot password flow wired up via Supabase, verified live
+- Full em-dash removal, capability title capitalisation, Influence → Influencing rename
+- Profile slider labels/colours/drag-responsiveness fixed, new capability detail view with a
+  working back button
+- Dashboard: removed the duplicate orange banner, renamed the capabilities card
+- "Insights" nav renamed to "Reflections" throughout
+- InsightCard reordered (coaching note above micro-action)
+- Guided journal prompts now rotate daily from a 6-prompt pool per capability
+- Capability chip row redesigned as a 5-column grid; found and fixed a real CSS grid overflow bug
+  along the way (`min-width: 0` needed on grid items)
+- Full navy-dominance visual pass — confirmed already compliant from UAT Batch 1, no further
+  changes needed
+
 ## Open decisions
-- Forgot password flow (currently placeholder link)
-- Subscription management UI (currently placeholder link)
+- Subscription management UI (currently placeholder link) — not yet built, tracked here per prompt
