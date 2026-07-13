@@ -43,7 +43,7 @@ export default function FreeWrite({
             className={`${styles.chip} ${capability === c.key ? styles.chipSelected : ''}`}
             onClick={() => setCapability(capability === c.key ? null : c.key)}
           >
-            <CapabilityIcon capabilityKey={c.key} size="large" />
+            <CapabilityIcon capabilityKey={c.key} size="medium" />
             <span>{c.name}</span>
           </button>
         ))}
