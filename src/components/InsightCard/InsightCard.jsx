@@ -53,6 +53,11 @@ export default function InsightCard({ insight }) {
 
       <div className={styles.divider} />
 
+      <p className={styles.label}>A note from your coach</p>
+      <p className={styles.coachingNote}>{insight.coaching_note}</p>
+
+      <div className={styles.divider} />
+
       <p className={styles.label}>Your micro-action for today</p>
       <p key={animKey} className={styles.action}>
         {action}
@@ -76,11 +81,6 @@ export default function InsightCard({ insight }) {
           You've explored all three, pick the one that feels most doable.
         </p>
       )}
-
-      <div className={styles.divider} />
-
-      <p className={styles.label}>A note from your coach</p>
-      <p className={styles.coachingNote}>{insight.coaching_note}</p>
     </div>
   );
 }
