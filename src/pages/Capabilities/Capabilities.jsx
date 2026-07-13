@@ -6,7 +6,7 @@ import styles from './Capabilities.module.css';
 export default function Capabilities() {
   return (
     <div className={styles.page}>
-      <h1 className={styles.heading}>Leadership capabilities</h1>
+      <h1 className={styles.heading}>Leadership Capabilities</h1>
       <p className={styles.intro}>
         LEADRA is built around five capabilities that shape how you show up as a leader.
       </p>

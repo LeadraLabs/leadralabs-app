@@ -12,11 +12,11 @@ export default function JournalSuccess() {
       <div className={styles.savedNotice}>
         <p className={styles.savedHeading}>We lost track of that insight</p>
         <p className={styles.savedBody}>
-          Refreshing this page clears it from memory for now, you can find it in your recent insights
+          Refreshing this page clears it from memory for now, you can find it in your recent reflections
           instead.
         </p>
         <Link to="/insights" className={styles.savedButton}>
-          Go to insights
+          Go to reflections
         </Link>
       </div>
     );

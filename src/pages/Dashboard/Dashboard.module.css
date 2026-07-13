@@ -79,27 +79,6 @@
   color: var(--gold-hover);
 }
 
-.promptCard {
-  background: var(--gold-light);
-  border-radius: 16px;
-  padding: 20px;
-  text-align: center;
-}
-
-.promptText {
-  font-size: 16px;
-  color: var(--text-primary);
-  margin-bottom: 12px;
-}
-
-.promptLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 600;
-  color: var(--gold-hover);
-}
-
 .streakCard {
   background: var(--warm-white);
   border-radius: 16px;

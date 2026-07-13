@@ -339,7 +339,7 @@ export default function Profile() {
         </div>
 
         <Link to="/capabilities" className={styles.capabilitiesLink}>
-          Learn about the 5 leadership capabilities
+          Learn about Leadership Capabilities
           <ArrowRight size={14} weight="regular" color="currentColor" />
         </Link>
       </section>

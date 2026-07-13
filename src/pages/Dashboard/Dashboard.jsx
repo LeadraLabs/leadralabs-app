@@ -191,14 +191,7 @@ export default function Dashboard() {
             Your entry is saved, we're still putting together today's insight.
           </p>
         </div>
-      ) : (
-        <div className={styles.promptCard}>
-          <p className={styles.promptText}>What moment shaped your day so far?</p>
-          <Link to="/journal" className={styles.promptLink}>
-            Write about it <ArrowRight size={14} weight="regular" color="currentColor" />
-          </Link>
-        </div>
-      )}
+      ) : null}
 
       <div className={styles.streakCard}>
         <p className={styles.sectionLabel}>My streak</p>
@@ -282,7 +275,7 @@ export default function Dashboard() {
       </div>
 
       <Link to="/capabilities" className={styles.capabilitiesCard}>
-        <span className={styles.capabilitiesCardText}>Learn about the 5 leadership capabilities</span>
+        <span className={styles.capabilitiesCardText}>Learn about Leadership Capabilities</span>
         <ArrowRight size={14} weight="regular" color="currentColor" />
       </Link>
     </div>

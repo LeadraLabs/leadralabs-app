@@ -57,7 +57,7 @@ export default function Insights() {
     return (
       <div className={styles.empty}>
         <p className={styles.emptyText}>
-          Your insights will appear here after your first journal entry.
+          Your reflections will appear here after your first journal entry.
         </p>
         <Link to="/journal" className={styles.emptyLink}>
           Write your first entry <ArrowRight size={14} weight="regular" color="currentColor" />

@@ -5,7 +5,7 @@ import styles from './BottomNav.module.css';
 const TABS = [
   { icon: House, label: 'Dashboard', to: '/dashboard' },
   { icon: PencilSimple, label: 'Journal', to: '/journal' },
-  { icon: Lightbulb, label: 'Insights', to: '/insights' },
+  { icon: Lightbulb, label: 'Reflections', to: '/insights' },
   { icon: CalendarBlank, label: 'Summaries', to: '/summaries' },
   { icon: UserCircle, label: 'Profile', to: '/profile' },
 ];
