@@ -291,7 +291,7 @@ export default function Profile() {
         <div className={styles.field}>
           <span className={styles.fieldLabel}>What's going on for you right now?</span>
           <p className={styles.fieldHelper}>
-            Flag anything that's coming up so your growth moments can be tailored to you — e.g. starting a
+            Flag anything that's coming up so your growth moments can be tailored to you, e.g. starting a
             new job, finishing my degree, prepping for senior-level interviews, working with a difficult
             colleague.
           </p>

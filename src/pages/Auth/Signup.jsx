@@ -27,7 +27,7 @@ export default function Signup() {
       return;
     }
     if (password !== confirmPassword) {
-      setError("Those passwords don't match — mind trying again?");
+      setError("Those passwords don't match, mind trying again?");
       return;
     }
 
@@ -36,12 +36,12 @@ export default function Signup() {
     setSubmitting(false);
 
     if (signUpError) {
-      setError("We couldn't create your account — double-check your details and try again.");
+      setError("We couldn't create your account, double-check your details and try again.");
       return;
     }
 
     if (!data.session) {
-      setInfo("Almost there — check your email to confirm your account, then sign in.");
+      setInfo("Almost there, check your email to confirm your account, then sign in.");
       return;
     }
 
@@ -58,7 +58,7 @@ export default function Signup() {
     setError('');
     const { error: googleError } = await signInWithGoogle();
     if (googleError) {
-      setError("We couldn't sign you in — double-check your email and password and try again.");
+      setError("We couldn't sign you in, double-check your email and password and try again.");
     }
   };
 

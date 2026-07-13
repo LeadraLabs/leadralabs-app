@@ -24,7 +24,7 @@ export default function Login() {
 
     if (signInError) {
       setSubmitting(false);
-      setError("That email and password don't match — want to try again?");
+      setError("That email and password don't match, want to try again?");
       return;
     }
 
@@ -37,7 +37,7 @@ export default function Login() {
     setError('');
     const { error: googleError } = await signInWithGoogle();
     if (googleError) {
-      setError("We couldn't sign you in — double-check your email and password and try again.");
+      setError("We couldn't sign you in, double-check your email and password and try again.");
     }
   };
 

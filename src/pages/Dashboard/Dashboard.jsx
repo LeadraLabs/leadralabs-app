@@ -188,7 +188,7 @@ export default function Dashboard() {
         <div className={styles.focusCard}>
           <p className={styles.focusLabel}>Today's micro-action</p>
           <p className={styles.focusAction}>
-            Your entry is saved — we're still putting together today's insight.
+            Your entry is saved, we're still putting together today's insight.
           </p>
         </div>
       ) : (

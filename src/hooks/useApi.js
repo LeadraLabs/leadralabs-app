@@ -11,7 +11,7 @@ export class ApiError extends Error {
   }
 }
 
-const FALLBACK_MESSAGE = "We're having a moment — please try again in a few seconds.";
+const FALLBACK_MESSAGE = "We're having a moment, please try again in a few seconds.";
 
 async function request(path, options = {}) {
   const { data } = await supabase.auth.getSession();

@@ -63,7 +63,7 @@ export default function Onboarding() {
       });
       navigate('/dashboard');
     } catch {
-      setError("We couldn't save your details — you can also set them later from your profile.");
+      setError("We couldn't save your details, you can also set them later from your profile.");
       navigate('/dashboard');
     } finally {
       setSaving(false);
@@ -88,7 +88,7 @@ export default function Onboarding() {
           <div>
             <h1 className={styles.heading}>Welcome to LEADRA.</h1>
             <p className={styles.body}>
-              You're here because leadership matters to you. This app will help you build it — one moment
+              You're here because leadership matters to you. This app will help you build it, one moment
               at a time.
             </p>
             <div className={styles.iconGrid}>
@@ -122,7 +122,7 @@ export default function Onboarding() {
         {step === 2 && (
           <div>
             <h1 className={styles.heading}>What would you like to work on first?</h1>
-            <p className={styles.body}>Choose one or more — you can change this any time in your profile.</p>
+            <p className={styles.body}>Choose one or more, you can change this any time in your profile.</p>
             <div className={styles.capabilityList}>
               {CAPABILITIES.map((c) => (
                 <button
@@ -146,9 +146,12 @@ export default function Onboarding() {
 
         {step === 3 && (
           <div>
-            <h1 className={styles.heading}>A bit more about where you're at</h1>
+            <h1 className={styles.heading}>A bit more about you</h1>
 
             <p className={styles.fieldLabel}>Career level</p>
+            <p className={styles.fieldHelper}>
+              This helps us tailor your coaching to where you are in your career.
+            </p>
             <div className={styles.pillRow}>
               {CAREER_LEVELS.map((option) => (
                 <button
@@ -180,7 +183,7 @@ export default function Onboarding() {
 
         {step === 4 && (
           <div>
-            <h1 className={styles.heading}>A bit more about you</h1>
+            <h1 className={styles.heading}>Where you're starting from</h1>
 
             <p className={styles.fieldLabel}>What do you want to get better at?</p>
             <textarea

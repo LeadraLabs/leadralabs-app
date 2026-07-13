@@ -70,7 +70,7 @@ export default function Journal() {
       }
     } catch {
       setError(
-        "Your words are safe — something went a little sideways generating your insight. Try submitting again."
+        "Your words are safe, something went a little sideways generating your insight. Try submitting again."
       );
     } finally {
       setSubmitting(false);
@@ -84,7 +84,7 @@ export default function Journal() {
           Your entry is saved <Sparkle size={20} weight="regular" color="var(--gold)" />
         </p>
         <p className={styles.savedBody}>
-          Our thinking cap is taking a quick breather. We'll generate your insight shortly — check back on
+          Our thinking cap is taking a quick breather. We'll generate your insight shortly, check back on
           your dashboard soon.
         </p>
         <button type="button" className={styles.savedButton} onClick={() => navigate('/dashboard')}>

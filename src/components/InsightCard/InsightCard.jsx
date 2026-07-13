@@ -62,7 +62,7 @@ export default function InsightCard({ insight }) {
         <button type="button" className={styles.refreshLink} onClick={handleRefresh} disabled={refreshing}>
           <ArrowClockwise size={14} weight="regular" color="currentColor" />
           <span>
-            This doesn't quite fit — show me another
+            This doesn't quite fit, show me another
             <span className={styles.remaining}>
               {' '}
               ({refreshesRemaining} option{refreshesRemaining === 1 ? '' : 's'} remaining)
@@ -73,7 +73,7 @@ export default function InsightCard({ insight }) {
 
       {exhausted && (
         <p className={styles.exhaustedNote}>
-          You've explored all three — pick the one that feels most doable.
+          You've explored all three, pick the one that feels most doable.
         </p>
       )}
 

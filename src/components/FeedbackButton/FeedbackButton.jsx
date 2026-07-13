@@ -53,7 +53,7 @@ export default function FeedbackButton() {
       });
       setSuccess(true);
     } catch {
-      setError("That didn't quite make it through — mind trying again?");
+      setError("That didn't quite make it through, mind trying again?");
     } finally {
       setSubmitting(false);
     }
