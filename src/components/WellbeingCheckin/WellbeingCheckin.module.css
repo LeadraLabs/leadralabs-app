@@ -1,0 +1,100 @@
+.checkin {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.moodTagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.moodTag {
+  min-height: 36px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--warm-white);
+  border: 2px solid var(--border);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.moodTagSelected {
+  border-color: var(--gold);
+  background: var(--gold-light);
+  color: var(--navy);
+}
+
+.growthRating {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.growthLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+}
+
+.starButton {
+  background: none;
+  border: none;
+  padding: 2px;
+  display: flex;
+}
+
+.wellbeingBlock {
+  background: var(--off-white);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.wellbeingHeading {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.wellbeingList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wellbeingRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.wellbeingRowHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wellbeingName {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.wellbeingValue {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.slider {
+  width: 100%;
+  accent-color: var(--navy);
+}

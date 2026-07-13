@@ -27,6 +27,9 @@ export default function Journal() {
     }
   });
   const [content, setContent] = useState('');
+  const [moodTags, setMoodTags] = useState([]);
+  const [growthRating, setGrowthRating] = useState(null);
+  const [wellbeing, setWellbeing] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
   const [error, setError] = useState('');
@@ -55,6 +58,9 @@ export default function Journal() {
         module: mode === 'guided' ? 'guided' : 'free_write',
         capability: capability || undefined,
         mood_rating: moodRating || undefined,
+        mood_tags: moodTags.length ? moodTags : undefined,
+        growth_rating: growthRating || undefined,
+        ...wellbeing,
       });
 
       if (result.insight) {
@@ -113,6 +119,12 @@ export default function Journal() {
     setCapability,
     moodRating,
     setMoodRating,
+    moodTags,
+    setMoodTags,
+    growthRating,
+    setGrowthRating,
+    wellbeing,
+    setWellbeing,
     content,
     setContent,
     submitting,

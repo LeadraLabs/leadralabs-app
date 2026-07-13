@@ -2,6 +2,7 @@ import { ArrowLeft } from '@phosphor-icons/react';
 import { CAPABILITIES } from '../../config/capabilities';
 import { MOOD_OPTIONS } from '../../config/moods';
 import CapabilityIcon from '../../components/CapabilityIcon/CapabilityIcon';
+import WellbeingCheckin from '../../components/WellbeingCheckin/WellbeingCheckin';
 import styles from './Journal.module.css';
 
 const MIN_LENGTH = 10;
@@ -11,6 +12,12 @@ export default function FreeWrite({
   setCapability,
   moodRating,
   setMoodRating,
+  moodTags,
+  setMoodTags,
+  growthRating,
+  setGrowthRating,
+  wellbeing,
+  setWellbeing,
   content,
   setContent,
   submitting,
@@ -64,6 +71,15 @@ export default function FreeWrite({
         placeholder="What moment stood out for you today? What happened, what did you feel, what did you do?"
         value={content}
         onChange={(e) => setContent(e.target.value)}
+      />
+
+      <WellbeingCheckin
+        moodTags={moodTags}
+        setMoodTags={setMoodTags}
+        growthRating={growthRating}
+        setGrowthRating={setGrowthRating}
+        wellbeing={wellbeing}
+        setWellbeing={setWellbeing}
       />
 
       {error && <p className={styles.error}>{error}</p>}

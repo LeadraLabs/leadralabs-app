@@ -1,6 +1,7 @@
 import { ArrowLeft } from '@phosphor-icons/react';
 import { CAPABILITIES, getCapability } from '../../config/capabilities';
 import CapabilityIcon from '../../components/CapabilityIcon/CapabilityIcon';
+import WellbeingCheckin from '../../components/WellbeingCheckin/WellbeingCheckin';
 import styles from './Journal.module.css';
 
 const MIN_LENGTH = 10;
@@ -10,6 +11,12 @@ export default function GuidedWrite({
   setCapability,
   content,
   setContent,
+  moodTags,
+  setMoodTags,
+  growthRating,
+  setGrowthRating,
+  wellbeing,
+  setWellbeing,
   submitting,
   error,
   loadingMessage,
@@ -49,6 +56,15 @@ export default function GuidedWrite({
             placeholder="Write your response here..."
             value={content}
             onChange={(e) => setContent(e.target.value)}
+          />
+
+          <WellbeingCheckin
+            moodTags={moodTags}
+            setMoodTags={setMoodTags}
+            growthRating={growthRating}
+            setGrowthRating={setGrowthRating}
+            wellbeing={wellbeing}
+            setWellbeing={setWellbeing}
           />
 
           {error && <p className={styles.error}>{error}</p>}
