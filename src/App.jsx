@@ -17,6 +17,7 @@ import Insights from './pages/Insights/Insights';
 import Summaries from './pages/Summaries/Summaries';
 import Profile from './pages/Profile/Profile';
 import Capabilities from './pages/Capabilities/Capabilities';
+import CapabilityDetail from './pages/Capabilities/CapabilityDetail';
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
@@ -127,6 +128,7 @@ function AppRoutes() {
         <Route path="/summaries" element={<Summaries />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/capabilities" element={<Capabilities />} />
+        <Route path="/capabilities/:key" element={<CapabilityDetail />} />
       </Route>
 
       <Route path="*" element={<CatchAllRoute />} />

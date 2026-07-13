@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { CAPABILITIES } from '../../config/capabilities';
 import CapabilityIcon from '../../components/CapabilityIcon/CapabilityIcon';
 import styles from './Capabilities.module.css';
@@ -12,7 +13,7 @@ export default function Capabilities() {
 
       <div className={styles.list}>
         {CAPABILITIES.map((c) => (
-          <div className={styles.card} key={c.key}>
+          <Link className={styles.card} key={c.key} to={`/capabilities/${c.key}`}>
             <div className={styles.cardHeader}>
               <CapabilityIcon capabilityKey={c.key} size="large" />
               <span className={styles.cardName}>{c.name}</span>
@@ -22,12 +23,7 @@ export default function Capabilities() {
               {/* NOVA: edit copy here */}
               <p className={styles.cardText}>{c.whyItMatters}</p>
             </div>
-            <div className={styles.cardSection}>
-              <span className={styles.cardLabel}>What you'll gain</span>
-              {/* NOVA: edit copy here */}
-              <p className={styles.cardText}>{c.whatYoullGain}</p>
-            </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

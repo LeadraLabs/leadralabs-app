@@ -10,6 +10,32 @@
   color: var(--navy);
 }
 
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.backLink:hover {
+  color: var(--gold-hover);
+}
+
+.detailHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.detailHeader .heading {
+  margin: 0;
+}
+
 .intro {
   font-size: 15px;
   color: var(--text-muted);
@@ -22,10 +48,17 @@
 }
 
 .card {
+  display: block;
   background: var(--warm-white);
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   padding: 20px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--gold);
 }
 
 .cardHeader {

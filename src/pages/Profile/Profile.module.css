@@ -175,6 +175,19 @@
   font-size: 14px;
   font-weight: 500;
   color: var(--text-primary);
+  text-decoration: none;
+}
+
+.ratingName:hover {
+  color: var(--gold-hover);
+}
+
+.sliderScaleLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: -4px;
 }
 
 .ratingValue {

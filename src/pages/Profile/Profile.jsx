@@ -312,7 +312,9 @@ export default function Profile() {
               <div className={styles.ratingRow} key={c.key}>
                 <div className={styles.ratingHeader}>
                   <CapabilityIcon capabilityKey={c.key} size="small" />
-                  <span className={styles.ratingName}>{c.name}</span>
+                  <Link to={`/capabilities/${c.key}`} className={styles.ratingName}>
+                    {c.name}
+                  </Link>
                   <span className={styles.ratingValue}>{selfRatings[c.key] ?? 3}</span>
                 </div>
                 <input
@@ -321,12 +323,16 @@ export default function Profile() {
                   max="5"
                   step="1"
                   className={styles.slider}
+                  style={{ accentColor: c.color }}
                   value={selfRatings[c.key] ?? 3}
                   onChange={(e) => handleRatingChange(c.key, Number(e.target.value))}
                   onMouseUp={() => handleRatingCommit(c.key)}
                   onTouchEnd={() => handleRatingCommit(c.key)}
-                  disabled={savingField === `rating:${c.key}`}
                 />
+                <div className={styles.sliderScaleLabels}>
+                  <span>Very poor</span>
+                  <span>Excellent</span>
+                </div>
               </div>
             ))}
           </div>
