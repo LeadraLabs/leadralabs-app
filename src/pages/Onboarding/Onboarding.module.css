@@ -154,6 +154,76 @@
   color: var(--navy);
 }
 
+.textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--off-white);
+  resize: vertical;
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--navy);
+}
+
+.fieldHelper {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.ratingList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.ratingRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ratingHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ratingName {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.ratingValue {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.slider {
+  width: 100%;
+}
+
+.sliderScaleLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-light);
+  margin-top: -4px;
+}
+
 .error {
   margin-top: 12px;
   font-size: 13px;

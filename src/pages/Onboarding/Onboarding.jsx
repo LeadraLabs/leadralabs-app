@@ -6,7 +6,7 @@ import { CAPABILITIES } from '../../config/capabilities';
 import CapabilityIcon from '../../components/CapabilityIcon/CapabilityIcon';
 import styles from './Onboarding.module.css';
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
 const CAREER_LEVELS = [
   { value: 'entry_level', label: 'Entry-level' },
@@ -29,6 +29,11 @@ export default function Onboarding() {
   const [selectedCapabilities, setSelectedCapabilities] = useState([]);
   const [careerLevel, setCareerLevel] = useState(null);
   const [managesOthers, setManagesOthers] = useState(null);
+  const [developmentGoals, setDevelopmentGoals] = useState('');
+  const [currentContext, setCurrentContext] = useState('');
+  const [selfRatings, setSelfRatings] = useState(() =>
+    CAPABILITIES.reduce((acc, c) => ({ ...acc, [c.key]: 3 }), {})
+  );
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -36,6 +41,10 @@ export default function Onboarding() {
     setSelectedCapabilities((prev) =>
       prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
     );
+  };
+
+  const handleRatingChange = (key, value) => {
+    setSelfRatings((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleFinish = async () => {
@@ -48,6 +57,9 @@ export default function Onboarding() {
         primary_capabilities: selectedCapabilities,
         career_level: careerLevel,
         manages_others: managesOthers,
+        development_goals: developmentGoals,
+        current_context: currentContext,
+        capability_self_ratings: selfRatings,
       });
       navigate('/dashboard');
     } catch {
@@ -161,6 +173,61 @@ export default function Onboarding() {
                 >
                   {option.label}
                 </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {step === 4 && (
+          <div>
+            <h1 className={styles.heading}>A bit more about you</h1>
+
+            <p className={styles.fieldLabel}>What do you want to get better at?</p>
+            <textarea
+              className={styles.textarea}
+              value={developmentGoals}
+              onChange={(e) => setDevelopmentGoals(e.target.value)}
+              rows={3}
+            />
+
+            <p className={styles.fieldLabel}>What's going on for you right now?</p>
+            <p className={styles.fieldHelper}>
+              Flag anything that's coming up so your growth moments can be tailored to you, e.g. starting a
+              new job, finishing your degree, prepping for senior-level interviews, working with a
+              difficult colleague.
+            </p>
+            <textarea
+              className={styles.textarea}
+              value={currentContext}
+              onChange={(e) => setCurrentContext(e.target.value)}
+              rows={3}
+            />
+
+            <p className={styles.fieldLabel}>Where are you at right now?</p>
+            <p className={styles.fieldHelper}>Rate yourself as honestly as you can, on each capability.</p>
+            <div className={styles.ratingList}>
+              {CAPABILITIES.map((c) => (
+                <div className={styles.ratingRow} key={c.key}>
+                  <div className={styles.ratingHeader}>
+                    <CapabilityIcon capabilityKey={c.key} size="small" />
+                    <span className={styles.ratingName}>{c.name}</span>
+                    <span className={styles.ratingValue}>{selfRatings[c.key] ?? 3}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="1"
+                    max="5"
+                    step="1"
+                    className={styles.slider}
+                    style={{ accentColor: c.color }}
+                    value={selfRatings[c.key] ?? 3}
+                    onChange={(e) => handleRatingChange(c.key, Number(e.target.value))}
+                  />
+                  <div className={styles.sliderScaleLabels}>
+                    <span>Very poor</span>
+                    <span>Excellent</span>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
