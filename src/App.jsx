@@ -7,6 +7,8 @@ import AppLayout from './components/Layout/AppLayout';
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
+import ForgotPassword from './pages/Auth/ForgotPassword';
+import ResetPassword from './pages/Auth/ResetPassword';
 import Onboarding from './pages/Onboarding/Onboarding';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Journal from './pages/Journal/Journal';
@@ -93,6 +95,15 @@ function AppRoutes() {
           </PublicRoute>
         }
       />
+      <Route
+        path="/forgot-password"
+        element={
+          <PublicRoute>
+            <ForgotPassword />
+          </PublicRoute>
+        }
+      />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route
         path="/onboarding"
         element={

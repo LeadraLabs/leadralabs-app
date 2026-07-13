@@ -74,8 +74,7 @@ export default function Login() {
             required
           />
 
-          {/* TODO: build a real forgot-password flow */}
-          <Link to="#" className={styles.forgotLink}>
+          <Link to="/forgot-password" className={styles.forgotLink}>
             Forgot password?
           </Link>
 

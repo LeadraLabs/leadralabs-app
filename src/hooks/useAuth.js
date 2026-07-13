@@ -39,6 +39,19 @@ export function AuthProvider({ children }) {
 
   const signOut = useCallback(() => supabase.auth.signOut(), []);
 
+  const sendPasswordResetEmail = useCallback(
+    (email) =>
+      supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      }),
+    []
+  );
+
+  const updatePassword = useCallback(
+    (password) => supabase.auth.updateUser({ password }),
+    []
+  );
+
   const value = {
     session,
     user: session?.user ?? null,
@@ -48,6 +61,8 @@ export function AuthProvider({ children }) {
     signUpWithPassword,
     signInWithGoogle,
     signOut,
+    sendPasswordResetEmail,
+    updatePassword,
   };
 
   return createElement(AuthContext.Provider, { value }, children);
