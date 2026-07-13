@@ -50,6 +50,30 @@ function PublicRoute({ children }) {
   return children;
 }
 
+function CatchAllRoute() {
+  const { isAuthenticated, loading } = useAuth();
+  const { getProfile } = useApi();
+  const [destination, setDestination] = useState(null);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setDestination('/login');
+      return;
+    }
+    let cancelled = false;
+    needsOnboarding(getProfile).then((needs) => {
+      if (!cancelled) setDestination(needs ? '/onboarding' : '/dashboard');
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [isAuthenticated, getProfile]);
+
+  if (loading || !destination) return <LoadingSpinner />;
+
+  return <Navigate to={destination} replace />;
+}
+
 function AppRoutes() {
   return (
     <Routes>
@@ -94,7 +118,7 @@ function AppRoutes() {
         <Route path="/capabilities" element={<Capabilities />} />
       </Route>
 
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route path="*" element={<CatchAllRoute />} />
     </Routes>
   );
 }
